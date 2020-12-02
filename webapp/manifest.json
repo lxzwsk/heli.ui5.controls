@@ -82,6 +82,11 @@
 				"sap.uxap": {}
 			}
 		},
+		"config": {
+			"fullWidth": "true",
+			"sapFiori2Adaptation": true
+		}
+		,
 		"contentDensities": {
 			"compact": true,
 			"cozy": true
