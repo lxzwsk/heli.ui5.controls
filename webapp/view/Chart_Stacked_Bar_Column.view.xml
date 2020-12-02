@@ -1,0 +1,30 @@
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns="sap.m"
+		  xmlns:viz="sap.viz.ui5.controls"
+		  xmlns:chart="sap.suite.ui.commons"
+	      controllerName="heli.ui5.controls.controller.Chart_Stacked_Bar_Column" xmlns:html="http://www.w3.org/1999/xhtml">
+
+			<Page title="Title">
+				<content> 
+					<VBox>
+						<Label text="dddd"></Label>
+					</VBox>
+					
+						<!--
+						<chart:ChartContainer id="chartContainer" showFullScreen="true" showZoom="false" title="Ice-Cream-Report">
+							<chart:ChartContainerContent>
+							    <chart:content>
+							    	-->
+									<viz:VizFrame xmlns="sap.viz"  id="idStackedChart"  vizType="stacked_bar" width="100%" height="100%">
+			                        </viz:VizFrame>
+			            <!--            
+	                        	</chart:content>
+							</chart:ChartContainerContent>
+						</chart:ChartContainer>
+					   -->
+					
+				</content>
+			</Page>
+\
+</mvc:View>

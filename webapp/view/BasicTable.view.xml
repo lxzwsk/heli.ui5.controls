@@ -1,0 +1,64 @@
+<mvc:View xmlns:core="sap.ui.core" 
+         xmlns:mvc = "sap.ui.core.mvc" 
+         xmlns = "sap.m" 
+         xmlns:t = "sap.ui.table"
+         xmlns:semantic = "sap.m.semantic"
+         controllerName="heli.ui5.controls.controller.BasicTable"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+			<Page title="BasicTable">
+				
+				<content>
+					<HBox>
+						<t:Table rows="{/ProductCollection}" noData="没有数据，搞毛啊!" visibleRowCount="50">
+							<t:columns>
+								<t:Column>
+									<Label text="ProductId"></Label>
+									<t:template>
+										<Label text="{ProductId}" ></Label>
+									</t:template>
+								</t:Column>
+								
+								<t:Column>
+									<Label text="Category"></Label>
+									<t:template>
+										<Input value="{Category}"></Input>
+									</t:template>
+								</t:Column>
+								
+								<t:Column>
+									<Label text="MainCategory"></Label>
+									<t:template>
+										<Input value="{MainCategory}"></Input>
+									</t:template>
+								</t:Column>
+								
+								<t:Column>
+									<Label text="TaxTarifCode"></Label>
+									<t:template>
+										<Input value="{TaxTarifCode}"></Input>
+									</t:template>
+								</t:Column>
+								
+								<t:Column>
+									<Label text="SupplierName"></Label>
+									<t:template>
+										<Input value="{SupplierName}"></Input>
+									</t:template>
+								</t:Column>
+								
+								<t:Column>
+									<Label text="WeightMeasure"></Label>
+									<t:template>
+										<Input value="{WeightMeasure}"></Input>
+									</t:template>
+								</t:Column>
+								
+							</t:columns>
+							
+						</t:Table>
+					</HBox>
+				</content>
+			</Page>
+		
+</mvc:View>

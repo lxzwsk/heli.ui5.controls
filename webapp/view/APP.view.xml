@@ -1,0 +1,7 @@
+<mvc:View controllerName="heli.ui5.controls.controller.APP" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
+	
+	<SplitApp id="AppRoot">
+		
+	</SplitApp>
+</mvc:View>

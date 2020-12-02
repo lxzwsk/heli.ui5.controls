@@ -1,0 +1,10 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.BasicInput"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+			<Page title="{i18n>BasicInput}">
+				<content>
+					<Text text="this is a basic input page"></Text>
+				</content>
+			</Page>
+
+</mvc:View>

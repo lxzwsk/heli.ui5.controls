@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.stockHelp_Test"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					<HBox>
+						<Input visible="false" value="http://localhost:3000/sina" id="iStockUrl"></Input>
+						<Input value="sz" id="iStockType" width="50px"></Input>
+						<Label text="开始段" vAlign="Middle" textAlign="Center"></Label>
+						<Input type="Number" id="iStartNo"></Input>
+						<Label text="结束段" vAlign="Middle" textAlign="Center"></Label>
+						<Input type="Number" id="iEndNo"></Input>
+						<Button text="开始" press="onGoPress"></Button>
+					</HBox>
+					<TextArea cols="120" rows="35" editable="false" id="tResult"></TextArea>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

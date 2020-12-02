@@ -1,0 +1,16 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	controllerName="heli.ui5.controls.controller.Popover_Basic" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title">
+		<content>
+			<Button id="btn1" text="Popover Test" press="onBtnPopover"></Button>
+			<Popover title="Popover Test" contentWidth="110%" enableScrolling="false" >
+				<layout:VerticalLayout width="100%" >
+					<!--class="sapUiSmallMargin"-->
+					<Link href="www.baidu.com" text="http://www.baidu.com" class="matchingItemLink" id="linkBuild" ></Link>
+
+					<Link href="www.google.com" text="http://www.google.com/?dfafjdskfdjfiedkfjksajfkdsjfkxnvkdjf" class="matchingItemLink" ></Link>
+				</layout:VerticalLayout>
+			</Popover>
+		</content>
+	</Page>
+</mvc:View>

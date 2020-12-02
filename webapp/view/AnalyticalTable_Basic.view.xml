@@ -1,0 +1,65 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:tab="sap.ui.table"
+	xmlns:smarttable="sap.ui.comp.smarttable" xmlns:smartfilter="sap.ui.comp.smartfilterbar"
+	controllerName="heli.ui5.controls.controller.AnalyticalTable_Basic" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title">
+		<content>
+			<smartfilter:SmartFilterBar basicSearchFieldName="MeetupID" entitySet="Meetups" search="onSearch" id="smartFilterBar1">
+				<smartfilter:controlConfiguration>
+					<!--<smartfilter:ControlConfiguration mandatory="mandatory" key="MeetupID" label="MeetupID" filterType="single" groupId="_BASIC" />-->
+					<smartfilter:ControlConfiguration key="MeetupID" label="MeetupID" filterType="single" groupId="_BASIC"/>
+				</smartfilter:controlConfiguration>
+			</smartfilter:SmartFilterBar>
+			<smarttable:SmartTable entitySet="Meetups" 
+								   header="oData Test" 
+								   smartFilterId="smartFilterBar1" 
+								   tableType="AnalyticalTable" 
+								   noData="没有数据，搞毛！" 
+								   id="Meetups.Table"
+								   enableAutoBinding="true"
+				beforeRebindTable="onMeetupsBeforeRebindTable">
+				<!--<tab:Table selectionMode="MultiToggle" enableSelectAll="true">-->
+				<!--	<tab:columns>-->
+				<!--		<tab:Column>-->
+				<!--			<Label text="MeetupID"></Label>-->
+				<!--			<tab:template>-->
+				<!--				<Input value="{MeetupID}"></Input>-->
+				<!--			</tab:template>-->
+				<!--		</tab:Column>-->
+				<!--	</tab:columns>-->
+				<!--</tab:Table>-->
+				<!--
+				<tab:AnalyticalTable selectionMode="MultiToggle" enableSelectAll="true">
+					<tab:columns>
+						<tab:AnalyticalColumn>
+							<Label text="MeetupID"></Label>
+							<tab:template>
+								<Label text="{MeetupID}"></Label>
+							</tab:template>
+							
+						</tab:AnalyticalColumn>
+						<tab:AnalyticalColumn>
+							<Label text="Title"></Label>
+							<tab:template>
+								<Label text="{Title}"></Label>
+							</tab:template>
+						</tab:AnalyticalColumn>
+						<tab:AnalyticalColumn>
+							<Label text="EventDate"></Label>
+							<tab:template>
+								<Label text="{EventDate}"></Label>
+							</tab:template>
+						</tab:AnalyticalColumn>
+						<tab:AnalyticalColumn>
+							<Label text="Description"></Label>
+							<tab:template>
+								<Label text="{Description}"></Label>
+							</tab:template>
+						</tab:AnalyticalColumn>
+					</tab:columns>
+				</tab:AnalyticalTable> -->
+				
+			</smarttable:SmartTable>
+			
+		</content>
+	</Page>
+</mvc:View>

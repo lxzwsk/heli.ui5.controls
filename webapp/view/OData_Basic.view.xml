@@ -1,0 +1,35 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar"
+	controllerName="heli.ui5.controls.controller.OData_Basic" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					<smartfilterbar:SmartFilterBar basicSearchFieldName="Zkey" entitySet="zheli_iSet" search="onSearch" id="smartFilterBar1">
+						<smartfilterbar:controlConfiguration>
+							<!--<smartfilterbar:ControlConfiguration mandatory="mandatory" key="MeetupID" label="MeetupID" filterType="single" groupId="_BASIC" />-->
+							<smartfilterbar:ControlConfiguration key="Zkey" label="Zkey" filterType="single" groupId="_BASIC"/>
+						</smartfilterbar:controlConfiguration>
+					</smartfilterbar:SmartFilterBar>
+					<!--<Table items="{/zheli_iSet}">-->
+					<!--	<columns>-->
+					<!--		<Column>-->
+					<!--			<Label text="Zkey"></Label>-->
+					<!--		</Column>-->
+					<!--		<Column>-->
+					<!--			<Label text="Zsubkey"></Label>-->
+					<!--		</Column>-->
+					<!--	</columns>-->
+					<!--	<items>-->
+					<!--		<ColumnListItem>-->
+					<!--			<cells>-->
+					<!--				<Input value="{Zkey}"></Input>-->
+					<!--				<Input value="{Zsubkey}"></Input>-->
+					<!--			</cells>-->
+					<!--		</ColumnListItem>-->
+					<!--	</items>-->
+					<!--</Table>-->
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

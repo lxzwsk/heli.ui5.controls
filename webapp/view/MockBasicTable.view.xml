@@ -1,0 +1,33 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.MockBasicTable"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title">
+		<content>
+			<Table items="{/Meetups}">
+				<columns>
+					<Column>
+						<Label text="MeetupID"></Label>
+					</Column>
+					<Column>
+						<Label text="Title"></Label>
+					</Column>
+					<Column>
+						<Label text="EventDate"></Label>
+					</Column>
+					<Column>
+						<Label text="Description"></Label>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Label text="{MeetupID}"></Label>
+							<Label text="{Title}"></Label>
+							<Label text="{path:'EventDate',formatter:'.dateFormat'}"></Label>
+							<Label text="{Description}"></Label>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,127 @@
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns="sap.m" 
+		  xmlns:table="sap.ui.table"
+		  xmlns:smartTable="sap.ui.comp.smarttable"
+		  controllerName="heli.ui5.controls.controller.TreeTable"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					
+					<smartTable:SmartTable entitySet="TreeNodeSet" tableType="TreeTable" id="osmTable">
+							<!--<table:Table>-->
+							<!--			<table:columns>-->
+									
+							<!--		<table:Column>-->
+							<!--			<Label text="Name"></Label>-->
+							<!--			<table:template>-->
+							<!--				<Text text="{Name}"></Text>-->
+							<!--			</table:template>-->
+							<!--		</table:Column>-->
+							<!--		<table:Column>-->
+							<!--			<Label text="Id"></Label>-->
+							<!--			<table:template>-->
+							<!--				<Text text="{ID}"></Text>-->
+							<!--			</table:template>-->
+							<!--		</table:Column>-->
+							<!--		<table:Column>-->
+							<!--			<Label text="ParentId"></Label>-->
+							<!--			<table:template>-->
+							<!--				<Text text="{ParentID}"></Text>-->
+							<!--			</table:template>-->
+							<!--		</table:Column>-->
+									
+							<!--	</table:columns>-->
+							<!--	<table:rowActionTemplate>-->
+							<!--		<table:RowAction>-->
+							<!--			<table:RowActionItem type="Navigation"></table:RowActionItem>-->
+							<!--		</table:RowAction>-->
+							<!--	</table:rowActionTemplate>	-->
+								
+							<!--</table:Table>-->
+							<table:TreeTable rows="{path:'/TreeNodeSet',
+														 parameters : {
+															expand : 'ChildNodes',
+															navigation : {
+																TreeNodeSet : 'ChildNodes'
+															},
+															numberOfExpandedLevels:2
+														}
+													}"
+											expandFirstLevel="true"
+											rowActionCount="1"
+											enableSelectAll="false"
+											selectionMode="None"
+							>
+								<table:columns>
+									
+									<table:Column >
+										<Label text="Name"></Label>
+										<table:template>
+											<Text text="{Name}"></Text>
+										</table:template>
+									</table:Column>
+									<table:Column >
+										<Label text="Id"></Label>
+										<table:template>
+											<Text text="{ID}"></Text>
+										</table:template>
+									</table:Column>
+									<table:Column >
+										<Label text="ParentId"></Label>
+										<table:template>
+											<Text text="{ParentID}"></Text>
+										</table:template>
+									</table:Column>
+									
+								</table:columns>
+								<table:rowActionTemplate>
+									<table:RowAction>
+										<table:RowActionItem type="Navigation"></table:RowActionItem>
+									</table:RowAction>
+								</table:rowActionTemplate>
+							</table:TreeTable>
+					</smartTable:SmartTable>
+					
+					<table:TreeTable id="rCodeTreeTable" 
+						rows="{
+								path:'Detail>/categories',
+								parameters:{arrayNames:['categories'],numberOfExpandedLevels: 1}
+						      }"
+						enableSelectAll="false"
+					    selectionMode="None"
+					    rowActionCount="1"
+					>
+						<table:columns>
+							<table:Column>
+								<Label text="Rcode"></Label>
+								<table:template>
+									<Text text="{Detail>Rcode}"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column>
+								<Label text="RText"></Label>
+								<table:template>
+									<Text text="{Detail>RText}"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column>
+								<Label text="Comments"></Label>
+								<table:template>
+									<Text text="{Detail>Comments}"></Text>
+								</table:template>
+							</table:Column>
+						</table:columns>
+						<table:rowActionTemplate>
+							<table:RowAction>
+								<table:RowActionItem type="Custom" icon="sap-icon://edit" visible="{= ${Detail>RText !== ''?'true':'false'} }"></table:RowActionItem>		
+							</table:RowAction>
+						</table:rowActionTemplate>
+					</table:TreeTable>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

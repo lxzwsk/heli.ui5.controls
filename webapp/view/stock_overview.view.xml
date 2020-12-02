@@ -1,0 +1,17 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:lay="sap.ui.layout"
+	controllerName="heli.ui5.controls.controller.stock_overview" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Stock OverView">
+		<content>
+			<Input id="iStockUrl" value="http://hq.sinajs.cn" visible="false"></Input>
+			<Input id="iStockImgUrl" value="http://image.sinajs.cn/newchart/" visible="false"></Input>
+			<lay:HorizontalLayout content="{/}" allowWrapping="true" blocked="false">
+					<GenericTile header="{header}" subheader="{subheader}" press="onTilePress">
+						<TileContent unit="{unit}" footer="{footer}">
+							<NumericContent indicator="{indicator}" value="{value}" valueColor="{valueColor}" truncateValueTo="6"></NumericContent>
+						</TileContent>
+					</GenericTile>
+			</lay:HorizontalLayout>
+		</content>
+		<Button id="btnTest" press="onBtnTest" visible="false"></Button>
+	</Page>
+</mvc:View>

@@ -1,0 +1,38 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.AutoTemplate"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Auto Build UI Parameter">
+		<content>
+			<HBox>
+				<Panel headerText="DataSource">
+					<HBox>
+						<TextArea cols="120" rows="5" id="TDataSource"></TextArea>
+						<VBox>
+							<Button icon="sap-icon://add" press="onDataSourceAddRows"></Button>
+							<Button icon="sap-icon://less" press="onDataSourceSubRows"></Button>
+						</VBox>
+					</HBox>
+				</Panel>
+			</HBox>
+			<OverflowToolbar>
+				<content>
+					<Button text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter"></Button>
+					<Button text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view"></Button>
+				</content>
+			</OverflowToolbar>
+			<HBox>
+				<VBox>
+					<Panel headerText="Result">
+						<HBox>
+							<TextArea cols="120" rows="15" id="TResult" editable="false"></TextArea>
+							<VBox>
+								<Button icon="sap-icon://add" press="onResultAddRows"></Button>
+								<Button icon="sap-icon://less" press="onResultSubRows"></Button>
+								<Button icon="sap-icon://copy" press="onCopy"></Button>
+							</VBox>
+						</HBox>
+					</Panel>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
+</mvc:View>

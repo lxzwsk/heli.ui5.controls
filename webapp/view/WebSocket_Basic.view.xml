@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.WebSocket_Basic"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="WebChat">
+				<content>
+					<HBox>
+						<Label text="WS URL" labelFor="iWsUrl" textAlign="Center"></Label>
+						<Input id="iWsUrl" value="ws://echo.websocket.org" width="800px"></Input>
+						<Button text="连接" press="onConnectPress"></Button>
+						<Button text="断开" press="onClosePress"></Button>
+					</HBox>
+					<TextArea cols="122" rows="32" wrapping="Soft" editable="false"></TextArea>
+					<HBox>
+						<Input id="iSender" width="800px"></Input><Button text="发送" press="onSendPress"></Button>
+					</HBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

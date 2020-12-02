@@ -1,0 +1,29 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.Table_M_CURD"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					
+					<Button id="BtnAdd" press="onPressAdd" text="Add"></Button>
+					<Table id="tab1" items="{jsonModel>/product}">
+						<columns>
+							<Column><Text text="Field1"></Text></Column>
+							<Column><Text text="Field2"></Text></Column>
+							<Column><Text text="Field3"></Text></Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Input value="{jsonModel>Field1}"></Input>
+									<Input value="{jsonModel>Field2}"></Input>
+									<Input value="{jsonModel>Field3}"></Input>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

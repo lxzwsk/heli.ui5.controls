@@ -1,0 +1,17 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.Master"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Control Tree">
+		<customHeader>
+			<OverflowToolbar>
+		<content>
+			<Button text="Reload" icon="sap-icon://refresh" press="onReload"></Button>
+			
+			
+		</content>
+	</OverflowToolbar>
+		</customHeader>
+		<Tree id="myTree" items="{TreeData>/}">
+			<StandardTreeItem title="{TreeData>name}" icon="{TreeData>icon}" type="Active" detailPress="onDetailPress" press="onDetailPress"></StandardTreeItem>
+		</Tree>
+	</Page>
+</mvc:View>

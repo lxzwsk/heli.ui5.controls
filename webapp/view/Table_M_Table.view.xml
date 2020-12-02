@@ -1,0 +1,106 @@
+<mvc:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m" 
+          xmlns:f="sap.f" 
+          xmlns:svm="sap.ui.comp.smartvariants"
+          xmlns:smartFilter="sap.ui.comp.smartfilterbar"
+	controllerName="heli.ui5.controls.controller.Table_M_Table" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page  showHeader="false">
+				<content>
+					<f:DynamicPage id="dPage">
+						<f:title>
+							<f:DynamicPageTitle>
+								<f:heading>
+									<svm:SmartVariantManagement id="__SVM01" persistencyKey="SmartVariantManagement"></svm:SmartVariantManagement>
+								</f:heading>
+								
+							</f:DynamicPageTitle>
+						</f:title>
+						<f:header>
+							<f:DynamicPageHeader>
+								<f:content>
+									<smartFilter:SmartFilterBar id="filterBar1" entitySet="Meetups" header="Meetup Search Filter" useToolbar="true" smartVariant="__SVM01" 
+									   persistencyKey="SmartFilterBar1">
+										<smartFilter:controlConfiguration>
+											<smartFilter:ControlConfiguration groupId="_BASIC" displayBehaviour="idAndDescription" filterType="single" index="2" mandatory="auto"
+												visible="true" id="filter.MeetupID" key="MeetupID"/>
+											<smartFilter:ControlConfiguration groupId="_BASIC" displayBehaviour="idAndDescription" filterType="single" index="3" mandatory="auto"
+												visible="true" id="filter.Title" key="Title"/>
+											<smartFilter:ControlConfiguration groupId="_BASIC" displayBehaviour="idAndDescription" filterType="single" index="4" mandatory="auto"
+												visible="true" id="filter.EventDate" key="EventDate"/>
+											<smartFilter:ControlConfiguration groupId="_BASIC" displayBehaviour="idAndDescription" filterType="single" index="5" mandatory="auto"
+												visible="true" id="filter.Description" key="Description"/>
+										</smartFilter:controlConfiguration>
+									</smartFilter:SmartFilterBar>
+								</f:content>
+							</f:DynamicPageHeader>
+						</f:header>
+						<f:content>
+							<Table id="Table1" alternateRowColors="true" backgroundDesign="Transparent" headerText="Header" mode="SingleSelect" noDataText="No Data"
+								items="{/Meetups}">
+								<columns>
+									<Column>
+										<Text text="MeetupID"/>
+									</Column>
+									<Column>
+										<Text text="Title"/>
+									</Column>
+									<Column>
+										<Text text="EventDate"/>
+									</Column>
+									<Column>
+										<Text text="Description"/>
+									</Column>
+									<Column>
+										<Text text="HostedBy"/>
+									</Column>
+									<Column>
+										<Text text="ContactPhone"/>
+									</Column>
+									<Column>
+										<Text text="Address"/>
+									</Column>
+									<Column>
+										<Text text="Country"/>
+									</Column>
+									<Column>
+										<Text text="Latitude"/>
+									</Column>
+									<Column>
+										<Text text="Longitude"/>
+									</Column>
+									<Column>
+										<Text text="HostedById"/>
+									</Column>
+									<Column>
+										<Text text="Location"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active" press="onPress1">
+										<cells>
+											<Input value="{MeetupID}"></Input>
+											<Input value="{Title}"></Input>
+											<Input value="{EventDate}"></Input>
+											<Input value="{Description}"></Input>
+											<Input value="{HostedBy}"></Input>
+											<Input value="{ContactPhone}"></Input>
+											<Input value="{Address}"></Input>
+											<Input value="{Country}"></Input>
+											<Input value="{Latitude}"></Input>
+											<Input value="{Longitude}"></Input>
+											<Input value="{HostedById}"></Input>
+											<Input value="{Location}"></Input>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</f:content>
+					</f:DynamicPage>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

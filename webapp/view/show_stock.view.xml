@@ -1,0 +1,199 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:table="sap.ui.table"
+	xmlns:f="sap.f" xmlns:form="sap.ui.layout.form" controllerName="heli.ui5.controls.controller.show_stock" xmlns:ux="sap.uxap"
+	xmlns:cust="heli.ui5.controls.Control" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{/title}" id="pStock" showNavButton="true" navButtonPress="onNavButtonPress">
+		<!--<TabContainer>-->
+		<!--	<items>-->
+		<!--		<TabContainerItem key="DetailInfo" name="个股详细信息"></TabContainerItem>-->
+		<!--		<TabContainerItem key="Optionalstock" name="自选股">-->
+		<!--			<content>-->
+		<!--				<Label text="ddddd"></Label>-->
+		<!--			</content>-->
+		<!--		</TabContainerItem>-->
+		<!--	</items>-->
+		<!--</TabContainer>-->
+		<!--<ux:ObjectPageLayout showHeaderContent="false">-->
+		<!--<ux:headerTitle>-->
+		<!--	<ux:ObjectPageHeader objectTitle="objectTitle"></ux:ObjectPageHeader>-->
+		<!--</ux:headerTitle>-->
+		<!--<ux:sections>-->
+		<!--	<ux:ObjectPageSection title="个股详细信息">-->
+		<!--		<ux:subSections>-->
+		<!--			<ux:ObjectPageSubSection title="个股详细信息" mode="Expanded">-->
+		<!--				<ux:blocks>-->
+		<content class="sapUiContentPadding">
+			<HBox>
+				<Input id="iStockUrl" value="http://hq.sinajs.cn" visible="false"></Input>
+				<Input id="iStockImgUrl" value="http://image.sinajs.cn/newchart/" visible="false"></Input>
+				<ComboBox id="cstockType" width="100px" selectedKey="sz" visible="false">
+					<items>
+						<core:ListItem key="sh" text="上市"></core:ListItem>
+						<core:ListItem key="sz" text="深市"></core:ListItem>
+					</items>
+				</ComboBox>
+				<!-- suggest="onSuggestHandler"  suggestionItemSelected="onSuggestionItemSelected" -->
+				<cust:StockInput width="300px" id="istockNo" dataSource="stocks>/stock" itemFields="stocks>stockNo,stocks>stockDesc,stocks>stockType"
+					suggestionItemSelected="onSuggestionItemSelected"></cust:StockInput>
+				<!--
+				<Input type="Text" id="istockNo" width="300px" placeholder="请输入股票代码" value="300387" showSuggestion="true"
+					showTableSuggestionValueHelp="false" suggestionRows="{stocks>/stock}" 
+					suggest="onSuggestHandler"  
+					>
+					<suggestionColumns>
+						<Column demandPopin="true" popinDisplay="Inline">
+							<Label text="stockNo"></Label>
+						</Column>
+						<Column demandPopin="true" popinDisplay="Inline">
+							<Label text="stockDesc"></Label>
+						</Column>
+						<Column demandPopin="true" popinDisplay="Inline">
+							<Label text="type"></Label>
+						</Column>
+					</suggestionColumns>
+					<suggestionRows>
+						<ColumnListItem>
+							<cells>
+								<Label text="{stocks>stockNo}"></Label>
+								<Label text="{stocks>stockDesc}"></Label>
+								<Label text="{stocks>stockType}"></Label>
+							</cells>
+						</ColumnListItem>
+					</suggestionRows>
+				</Input> -->
+				<Button text="刷新" press="onShowPress" id="btnShowStock"></Button>
+				<CheckBox text="隐藏利润" selected="true" select="onHideLRCHK"></CheckBox>
+				<CheckBox text="定时刷新" select="onAutoRefresh" selected="{/status/autoRefresh}"></CheckBox>
+				<Input type="Number" placeholder="输入间隔时间" value="{/params/autoTime}" width="100px"></Input>
+				<Button text="stockHelp Test" press="onTestPress" visible="false"></Button>
+			</HBox>
+			<OverflowToolbar id="oToolbar"></OverflowToolbar>
+			<layout:HorizontalLayout >
+				<VBox width="720px">
+					<layout:Grid defaultSpan="XL2 L2 M2 S2">
+						<layout:content>
+							<Label text="今开"></Label>
+							<Text text="{/summary/jk}"></Text>
+							<Label text="当前"></Label>
+							<Text text="{/summary/dq}"></Text>
+							<Label text="最低"></Label>
+							<Text text="{/summary/zd}"></Text>
+						</layout:content>
+					</layout:Grid>
+					<layout:Grid defaultSpan="XL2 L2 M2 S2">
+						<layout:content>
+							<Label text="成交均价"></Label>
+							<Text text="{/summary/cjjj}"></Text>
+							<Label text="成交量"></Label>
+							<Text text="{/summary/cjl}"></Text>
+							<Label text="成交额"></Label>
+							<Text text="{/summary/cjr}"></Text>
+						</layout:content>
+					</layout:Grid>
+					<layout:Grid defaultSpan="XL2 L2 M2 S2">
+						<layout:content>
+							<Label text="涨幅"></Label>
+							<Text text="{/summary/zf}" fieldGroupIds="zf"></Text>
+							<Label text="换手率"></Label>
+							<Text text="{/summary/hsn}"></Text>
+						</layout:content>
+					</layout:Grid>
+					<layout:VerticalLayout visible="{/status/showLR}">
+						<VBox width="720px">
+							<layout:Grid defaultSpan="XL2 L2 M2 S2">
+								<layout:content>
+									<Label text="成本价"></Label>
+									<Text text="{/summary/cbj}"></Text>
+									<Label text="库存"></Label>
+									<Text text="{/summary/kc}"></Text>
+									<Label text="库存额"></Label>
+									<Text text="{/summary/kcr}"></Text>
+								</layout:content>
+							</layout:Grid>
+							<layout:Grid defaultSpan="XL2 L2 M2 S2">
+								<layout:content>
+									<Label text="利润"></Label>
+									<Text text="{/summary/lr}" fieldGroupIds="lr"></Text>
+									<Label text="利润率"></Label>
+									<Text text="{/summary/lrl}" fieldGroupIds="lr"></Text>
+									<Label text="今天利润"></Label>
+									<Text text="{/summary/jrlr}" fieldGroupIds="zf"></Text>
+								</layout:content>
+							</layout:Grid>
+							<layout:Grid defaultSpan="XL2 L2 M2 S2">
+								<layout:content>
+									<Label text="当前总额"></Label>
+									<Text text="{/summary/dqzr}"></Text>
+								</layout:content>
+							</layout:Grid>
+						</VBox>
+					</layout:VerticalLayout>
+					<layout:VerticalLayout id="vlImg" visible="{/status/showImg}">
+						<Image id="imgStock" width="720px" height="500px" src="{/currImgUrl}" load="onImageLoad"></Image>
+						<layout:Grid defaultSpan="XL2 L2 M2 S2">
+							<Link id="lMinLink" text="分时线" press="onImgPress"></Link>
+							<Link id="lDayLink" text="日线" press="onImgPress"></Link>
+							<Link id="lWeekLink" text="周线" press="onImgPress"></Link>
+							<Link id="lMonthLink" text="月线" press="onImgPress"></Link>
+						</layout:Grid>
+					</layout:VerticalLayout>
+					<Bar>
+						<contentRight>
+							<Button id="btnHideImg" text="Hide Image" press="onHideImg" icon="sap-icon://collapse-group"></Button>
+						</contentRight>
+					</Bar>
+				</VBox>
+				<table:Table id="tabStock" rows="{/linedata}" enableSelectAll="false" columnHeaderVisible="false" selectionMode="None" visibleRowCount="30">
+					<table:columns>
+						<table:Column width="110px">
+							<table:template>
+								<Label text="{linedesc}"></Label>
+							</table:template>
+						</table:Column>
+						<table:Column width="110px">
+							<table:template>
+								<Label text="{linedata}"></Label>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</layout:HorizontalLayout>
+			<Table items="{stocks>/stock}" id="iTab" visible="false">
+				<columns>
+					<Column>
+						<Label text="stockType"></Label>
+					</Column>
+					<Column>
+						<Label text="stockNo"></Label>
+					</Column>
+					<Column>
+						<Label text="stockDesc"></Label>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{stocks>stockType}"></Text>
+							<Text text="{stocks>stockNo}"></Text>
+							<Text text="{stocks>stockDesc}"></Text>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<!--					</ux:blocks>-->
+			<!--				</ux:ObjectPageSubSection>-->
+			<!--			</ux:subSections>-->
+			<!--		</ux:ObjectPageSection>-->
+			<!--		<ux:ObjectPageSection title="自选股">-->
+			<!--			<ux:subSections>-->
+			<!--				<ux:ObjectPageSubSection title="自选股" mode="Expanded">-->
+			<!--					<ux:blocks>-->
+			<!--						<Label text="abcdef"></Label>-->
+			<!--					</ux:blocks>-->
+			<!--				</ux:ObjectPageSubSection>-->
+			<!--			</ux:subSections>-->
+			<!--		</ux:ObjectPageSection>-->
+			<!--	</ux:sections>-->
+			<!--</ux:ObjectPageLayout>-->
+		</content>
+	</Page>
+</mvc:View>

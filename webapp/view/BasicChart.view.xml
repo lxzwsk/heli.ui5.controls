@@ -1,0 +1,90 @@
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns="sap.m" 
+		  xmlns:viz="sap.viz.ui5.controls"
+	      xmlns:viz.data="sap.viz.ui5.data" 
+	      xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" 
+	      xmlns:layout="sap.ui.layout"
+	      xmlns:table="sap.ui.table"
+	      xmlns:chart="sap.suite.ui.commons"
+	controllerName="heli.ui5.controls.controller.BasicChart" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>BasicChart}">
+		<content>
+
+					
+					<!--<chart:ChartContainer showFullScreen="true" showZoom="false" title="Ice-Cream-Report">-->
+					<!--	<chart:ChartContainerContent>-->
+					<!--		<chart:content>-->
+								
+								<!--
+									<viz:VizFrame id="myFrame" uiConfig="{applicationSet:'fiori'}"
+					                height='100%' width="100%" vizType='column'
+					                vizProperties="{
+															plotArea:{
+                            									dataLabel:{visible: true},
+                            									drawingEffect:'glossy'
+			    											},
+                            								title : {text:'Flavor-Sales'},
+                            								legendGroup:{layout:{position:'left'}}
+		    											}"
+					                >
+					                <viz:dataset>
+					                    <viz.data:FlattenedDataset data="{SaleOrders>/}">
+					                        <viz.data:dimensions>
+					                            <viz.data:DimensionDefinition name="soid"
+					                                value="{{SaleOrders>soid}" />
+					                        </viz.data:dimensions>
+					                        <viz.data:measures>
+					                            <viz.data:MeasureDefinition name="cost"  value="{SaleOrders>cost}" />
+					                            <viz.data:MeasureDefinition name="qty"  value="{SaleOrders>qty}" />
+					                        </viz.data:measures>
+					                    </viz.data:FlattenedDataset>
+					                </viz:dataset>
+					
+					                <viz:feeds>
+					                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure"   values="cost" />
+					                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension"    values="soid" />
+					                </viz:feeds>
+					            </viz:VizFrame>
+					           -->
+            				
+								<viz:VizFrame id="myFrame" vizType="stacked_column" height="100%" width="100%" uiConfig="{applicationSet:'fiori'}"
+									vizProperties="{
+														plotArea: {
+																
+																dataLabel: {
+																		showTotal: true
+																}
+														},
+                            								title : {text:'Sales-Chart'},
+                            								legendGroup:{layout:{position:'left'}}
+		    											}"
+		    							renderComplete="handleRenderComplete"
+								>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{SaleOrders>/}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="soid" value="{SaleOrders>soid}"></viz.data:DimensionDefinition>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="cost" value="{SaleOrders>cost}"></viz.data:MeasureDefinition>
+												<viz.data:MeasureDefinition name="qty" value="{SaleOrders>qty}"></viz.data:MeasureDefinition>
+												<viz.data:MeasureDefinition name="amt" value="{SaleOrders>amt}"></viz.data:MeasureDefinition>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="categoryAxis" id="categoryAxisFeed" type="Dimension" values="soid"></viz.feeds:FeedItem>
+										<viz.feeds:FeedItem uid="valueAxis" id="valueAxisCostFeed"   type="Measure"   values="cost"></viz.feeds:FeedItem>
+										<viz.feeds:FeedItem uid="valueAxis" id="valueAxisQtyFeed"   type="Measure"    values="qty"></viz.feeds:FeedItem>
+										<viz.feeds:FeedItem uid="valueAxis" id="valueAxisAmtFeed"   type="Measure"    values="amt"></viz.feeds:FeedItem>
+									</viz:feeds>
+								</viz:VizFrame>
+								
+					<!--		</chart:content>-->
+					<!--	</chart:ChartContainerContent>-->
+					<!--</chart:ChartContainer>-->
+
+		</content>
+	</Page>
+</mvc:View>

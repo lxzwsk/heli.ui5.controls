@@ -1,0 +1,35 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ux="sap.uxap" xmlns="sap.m"
+	controllerName="heli.ui5.controls.controller.ES6" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="ES6">
+				<ux:ObjectPageLayout id="pageLayout" enableLazyLoading="true" upperCaseAnchorBar="false">
+					<ux:headerTitle></ux:headerTitle>
+					<ux:sections>
+						<ux:ObjectPageSection id="opsSet" title="Set">
+							<ux:subSections>
+								<ux:ObjectPageSubSection>
+									<HBox>
+										<Button text="InitSet" press="onInitSet"></Button>
+										<Button text="AddItem" press="onAddItem"></Button>
+										<Button text="RemoveItem" press="onRemoveItem"></Button>
+										<!--<Button text=""></Button>-->
+									</HBox>
+								</ux:ObjectPageSubSection>
+							</ux:subSections>
+						</ux:ObjectPageSection>
+						<ux:ObjectPageSection id="opsResult" title="Result">
+							<ux:subSections>
+								<ux:ObjectPageSubSection>
+									<TextArea id="opstResult" cols="120" rows="20">
+										
+									</TextArea>
+								</ux:ObjectPageSubSection>
+							</ux:subSections>
+						</ux:ObjectPageSection>
+					</ux:sections>
+				</ux:ObjectPageLayout>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

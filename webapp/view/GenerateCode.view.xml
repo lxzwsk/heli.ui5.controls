@@ -1,0 +1,146 @@
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns="sap.m" 
+		  xmlns:ux="sap.uxap"
+		  xmlns:table="sap.ui.table"
+		  xmlns:code="sap.ui.codeeditor"
+		  controllerName="heli.ui5.controls.controller.GenerateCode"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Generate Ui5 XMLView Code" id="mainPage">
+				<ux:ObjectPageLayout enableLazyLoading="true" upperCaseAnchorBar="false">
+				<!--	<ux:ObjectPageHeader>
+						
+					</ux:ObjectPageHeader>-->
+					<ux:sections>
+						<ux:ObjectPageSection showTitle="true" title="DataSource">
+							<ux:subSections>
+								<ux:ObjectPageSubSection title="DataSource" >
+									<HBox>
+										<Label text="Odata Url:"></Label>
+										<Input id="DataSource.Url"  width="600px" value="/sap/opu/odata/sap/ZHELIV2_SRV/"></Input>
+										<Button text="加载" press="onLoadDataSourcePress"></Button>
+									</HBox>
+								</ux:ObjectPageSubSection>
+							</ux:subSections>
+						</ux:ObjectPageSection>
+						<ux:ObjectPageSection showTitle="true" title="WorkList">
+							<ux:subSections>
+								<ux:ObjectPageSubSection title="WorkList" >
+									<VBox>
+											<HBox>
+												<Label text="EntitySet:"></Label>
+												<ComboBox id="cBoxWorkListEntitySet" items="{/}" change="onWorkListEntitySetChanged">
+													<items>
+														<core:Item key="{key}" text="{text}"></core:Item>
+													</items>
+												</ComboBox>
+												<Label text="Use SmartTable:"></Label><CheckBox id="chkUseSmartTable" selected="{oControl>/WorkListTable/EnabledSmartTable}"></CheckBox>
+												<Label text="Enable Selected All"></Label><CheckBox id="chkEnableSelectedAll" selected="{oControl>/WorkListTable/EnabledSelectedAll}"></CheckBox>
+												<Label text="Enable MultiToggle"></Label><CheckBox id="chkEnableMultiToggle" selected="{oControl>/WorkListTable/EnabledMultiToggle}"></CheckBox>
+											</HBox>
+											<table:Table rows="{fieldList>/}" visible="{oControl>/showWorkListTable}" enableSelectAll="false" selectionMode="Single">
+												<table:columns>
+													<table:Column>
+														<Label text="Field Name"></Label>
+														<table:template>
+															<Text text="{fieldList>FieldName}"></Text>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Data Type"></Label>
+														<table:template>
+															<Text text="{fieldList>DataType}"></Text>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Show Table"></Label>
+														<table:template>
+															<CheckBox selected="{fieldList>ShowTable}"></CheckBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="show Type"></Label>
+														<table:template>
+															<ComboBox selectedKey="{fieldList>ShowType}" items="{controlType>/tableControlType}">
+																<items>
+																	<core:Item key="{controlType>key}" text="{controlType>text}"></core:Item>
+																</items>
+															</ComboBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Show Filter"></Label>
+														<table:template>
+															<CheckBox selected="{fieldList>ShowFilter}"></CheckBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Filter Type"></Label>
+														<table:template>
+															<ComboBox selectedKey="{fieldList>FilterType}" items="{controlType>/filterControlType}" >
+																<items>
+																	<core:Item key="{controlType>key}" text="{controlType>text}"></core:Item>
+																</items>
+															</ComboBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Mandatory"></Label>
+														<table:template>
+															<CheckBox selected="{fieldList>Mandatory}"></CheckBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Enabled Order"></Label>
+														<table:template>
+															<CheckBox selected="{fieldList>EnableOrder}"></CheckBox>
+														</table:template>
+													</table:Column>
+													<table:Column>
+														<Label text="Enabled Filter"></Label>
+														<table:template>
+															<CheckBox selected="{fieldList>EnabledFilter}"></CheckBox>
+														</table:template>
+													</table:Column>
+												</table:columns>
+											</table:Table>
+											<Button text="Generate" press="onWorkListGenerate"></Button>
+										</VBox>
+									
+								</ux:ObjectPageSubSection>
+								<!--<ux:ObjectPageSubSection title="FieldList">
+									
+								</ux:ObjectPageSubSection>-->
+							</ux:subSections>
+						</ux:ObjectPageSection>
+						<ux:ObjectPageSection showTitle="true" title="Object">
+							<ux:subSections>
+								<ux:ObjectPageSubSection title="Object">
+									<HBox>
+										<Label text="EntitySet:"></Label>
+										<ComboBox id="cBoxObjectEntitySet" items="{/}">
+											<items>
+												<core:Item key="{key}" text="{text}"></core:Item>
+											</items>
+										</ComboBox>
+									</HBox>
+								</ux:ObjectPageSubSection>
+							</ux:subSections>
+						</ux:ObjectPageSection>
+						<ux:ObjectPageSection showTitle="true" title="Code">
+							<ux:subSections>
+								<ux:ObjectPageSubSection>
+									<code:CodeEditor id="codeSource" editable="true" type="xml" value="var a = 20;" maxLines="1000000" >
+										
+									</code:CodeEditor>
+								</ux:ObjectPageSubSection>
+							</ux:subSections>
+						</ux:ObjectPageSection>
+					</ux:sections>
+				</ux:ObjectPageLayout>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

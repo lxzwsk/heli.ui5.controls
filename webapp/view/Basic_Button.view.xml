@@ -1,0 +1,12 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.Basic_Button"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<content>
+					<Button id="btn1" press="onBtn1Press" text="showBusy"></Button>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

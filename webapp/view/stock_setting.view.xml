@@ -1,0 +1,142 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout" xmlns:cust="heli.ui5.controls.Control" controllerName="heli.ui5.controls.controller.stock_setting" width="100%"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="股票设置">
+		<content>
+			<TabContainer itemClose="onItemClose">
+				<items >
+					<TabContainerItem key="tabItemStocks" name="股票清单">
+						<content>
+							<fb:FilterBar id="filterBar1" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
+								<fb:filterItems>
+									<fb:FilterItem name="stockType" label="股票类型">
+										<fb:control>
+											<MultiComboBox name="mcbstockType" width="20%">
+												<items>
+													<core:Item key="sh" text="沪市"></core:Item>
+													<core:Item key="sz" text="深市"></core:Item>
+												</items>
+											</MultiComboBox>
+										</fb:control>
+									</fb:FilterItem>
+									<fb:FilterItem name="stockNo" label="股票编码">
+										<fb:control>
+											<!--<MultiInput name="mistockNo"></MultiInput>-->
+											<cust:StockInput name="mistockNo" dataSource="/stock" itemFields="stockNo,stockDesc,stockType"></cust:StockInput>
+										</fb:control>
+									</fb:FilterItem>
+									<fb:FilterItem name="stockDesc" label="描述">
+										<fb:control>
+											<MultiInput name="mistockDesc"></MultiInput>
+										</fb:control>
+									</fb:FilterItem>
+								</fb:filterItems>
+							</fb:FilterBar>
+							<Toolbar>
+								<content>
+									<Button text="持有"></Button>
+									<Button text="收藏" press="onFavoritePress"></Button>
+								</content>
+							</Toolbar>
+							<Table id="tabStocks" items="{/stock}" fixedLayout="true" mode="MultiSelect">
+								<columns>
+									<Column >
+										<Text text="股票类型"></Text>
+									</Column>
+									<Column >
+										<Text text="股票编码"></Text>
+									</Column>
+									<Column>
+										<Text text="描述"></Text>
+									</Column>
+									<Column>
+										<Text text="持有"></Text>
+									</Column>
+									<Column>
+										<Text text="收藏"></Text>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{stockType}"></Text>
+											<Text text="{stockNo}"></Text>
+											<Text text="{stockDesc}"></Text>
+											<Text text="{ycy}"></Text>
+											<Text text="{ysc}"></Text>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</TabContainerItem>
+					<TabContainerItem key="tabItemEquity" name="已持有">
+						<content>
+							<Table id="tabEquity" items="{stockEquity>/}" fixedLayout="false" mode="MultiSelect">
+								<columns>
+									<Column >
+										<Text text="股票类型"></Text>
+									</Column>
+									<Column >
+										<Text text="股票编码"></Text>
+									</Column>
+									<Column >
+										<Text text="持仓价格"></Text>
+									</Column>
+									<Column >
+										<Text text="持仓数量"></Text>
+									</Column>
+									<Column >
+										<Text text="总量"></Text>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{stockEquity>stockType}"></Text>
+											<Text text="{stockEquity>stockNo}"></Text>
+											<Text text="{stockEquity>inPrice}"></Text>
+											<Text text="{stockEquity>inQty}"></Text>
+											<Text text="{stockEquity>totalQty}"></Text>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</TabContainerItem>
+					<TabContainerItem key="tabItemFavorite" name="已收藏">
+						<content>
+							<Toolbar>
+								<content>
+									<Button text="删除" press="onDeleteFavorite"></Button>
+								</content>
+							</Toolbar>
+							<Table id="tabFavorite" items="{stockFavorite>/}" fixedLayout="false" mode="MultiSelect">
+								<columns>
+									<Column >
+										<Text text="股票类型"></Text>
+									</Column>
+									<Column >
+										<Text text="股票编码"></Text>
+									</Column>
+									<Column >
+										<Text text="描述"></Text>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{stockFavorite>stockType}"></Text>
+											<Text text="{stockFavorite>stockNo}"></Text>
+											<Text text="{stockFavorite>stockDesc}"></Text>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</TabContainerItem>
+				</items>
+			</TabContainer>
+		</content>
+	</Page>
+</mvc:View>
