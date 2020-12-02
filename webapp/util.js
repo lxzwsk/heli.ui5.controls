@@ -1,12 +1,12 @@
 sap.ui.define([
-	"ZHELI_UI5_CONTROLS/model/MasterTree",
+	"heli/ui5/controls/model/MasterTree",
 	"sap/m/MessageToast"
 ], function(MasterTree,MessageToast) {
 	var fnBuildRoute = function() {
 		return {
 			config: {
 				routerClass: "sap.m.routing.Router",
-				viewPath: "ZHELI_UI5_CONTROLS.view",
+				viewPath: "heli.ui5.controls.view",
 				controlId: "AppRoot",
 				viewType: "XML",
 				async: true
