@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageToast",
 	"sap/ui/model/json/JSONModel",
-	"heli.ui5.controls/model/stockHelp",
+	"heli/ui5/controls/model/stockHelp",
 ], function(Controller, MessageToast, JSONModel, stockHelp) {
 	"use strict";
 

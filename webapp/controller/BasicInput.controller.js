@@ -1,5 +1,5 @@
 sap.ui.define([
-	"heli.ui5.controls/controller/BaseController"
+	"heli/ui5/controls/controller/BaseController"
 ], function(Controller) {
 	"use strict";
 

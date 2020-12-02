@@ -2,11 +2,11 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
 	"sap/ui/model/json/JSONModel",
-	"heli.ui5.controls/model/models",
-	"heli.ui5.controls/util",
-	"heli.ui5.controls/data/stock_equity",
-	"heli.ui5.controls/data/stock_favorite",
-	"heli.ui5.controls/model/MasterTree",
+	"heli/ui5/controls/model/models",
+	"heli/ui5/controls/util",
+	"heli/ui5/controls/data/stock_equity",
+	"heli/ui5/controls/data/stock_favorite",
+	"heli/ui5/controls/model/MasterTree",
 ], function(UIComponent, Device, JSONModel, models, util, stock_equity, stock_favorite, MasterTree) {
 	"use strict";
 

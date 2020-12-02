@@ -1,6 +1,6 @@
 sap.ui.define([
-	"heli.ui5.controls/controller/BaseController",
-	"heli.ui5.controls/model/models",
+	"heli/ui5/controls/controller/BaseController",
+	"heli/ui5/controls/model/models",
 	'sap/viz/ui5/format/ChartFormatter',
 	'sap/viz/ui5/api/env/Format'
 ], function(Controller, models, ChartFormatter, Format) {

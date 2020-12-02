@@ -4,11 +4,11 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/m/MessageBox",
 	"sap/m/BusyDialog",
-	"heli.ui5.controls/model/stockHelp",
+	"heli/ui5/controls/model/stockHelp",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"heli.ui5.controls/data/stock_favorite",
-	"heli.ui5.controls/data/stock_equity",
+	"heli/ui5/controls/data/stock_favorite",
+	"heli/ui5/controls/data/stock_equity",
 	"sap/ui/core/routing/History"
 ], function(Controller, JSONModel, MessageToast, MessageBox, BusyDialog, stockHelp, Filter, FilterOperator, stock_favorite, stock_equity,
 	History) {

@@ -1,7 +1,7 @@
 sap.ui.define([
-	"heli.ui5.controls/controller/BaseController",
+	"heli/ui5/controls/controller/BaseController",
 	"sap/ui/Device",
-	"heli.ui5.controls/model/models"
+	"heli/ui5/controls/model/models"
 ], function(Controller, Device, models) {
 	"use strict";
 

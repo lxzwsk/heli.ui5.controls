@@ -1,6 +1,6 @@
 sap.ui.define([
-	"heli.ui5.controls/controller/BaseController",
-	"heli.ui5.controls/data/SaleOrders",
+	"heli/ui5/controls/controller/BaseController",
+	"heli/ui5/controls/data/SaleOrders",
 	"sap/ui/model/json/JSONModel"
 ], function(Controller, SaleOrders, JSONModel) {
 	"use strict";

@@ -1,7 +1,7 @@
 sap.ui.define([
-	"heli.ui5.controls/controller/BaseController",
+	"heli/ui5/controls/controller/BaseController",
 	"sap/m/MessageToast",
-	"heli.ui5.controls/util"
+	"heli/ui5/controls/util"
 ], function(Controller, MessageToast, util) {
 	"use strict";
 	var iFixedRows = 3;
