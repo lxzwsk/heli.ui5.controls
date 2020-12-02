@@ -47,7 +47,7 @@ sap.ui.define([
 	var fnBuildRouteByTreeData = function() {
 		var jsonConfig = {
 			routerClass: "sap.m.routing.Router",
-			viewPath: "ZHELI_UI5_CONTROLS.view",
+			viewPath: "heli.ui5.controls.view",
 			controlId: "AppRoot",
 			viewType: "XML",
 			async: true
