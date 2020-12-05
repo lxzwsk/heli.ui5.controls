@@ -8,7 +8,7 @@ sap.ui.define([
 	"heli/ui5/controls/data/stock_favorite",
 	"heli/ui5/controls/model/MasterTree",
 ], function(UIComponent, Device, JSONModel, models, util, stock_equity, stock_favorite, MasterTree) {
-	"use strict";
+	"use strict"; 
 
 	return UIComponent.extend("heli.ui5.controls.Component", {
 
