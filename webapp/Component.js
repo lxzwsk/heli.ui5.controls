@@ -36,12 +36,21 @@ sap.ui.define([
 			this._stock_favorite = stock_favorite.favorites;
 			this._getStocks();
 			
+			this._buildDataSource();
+			
 		},
 		_getStocks: function() {
 			var jsonModel = new JSONModel();
 			jsonModel.loadData("data/stocks.json", {}, false);
 			this._stocks = jsonModel.getProperty("/");
 		},
+		_buildDataSource:function(){
+			var oDataSources = this.getManifest()["sap.app"]["dataSources"];
+			for(var o in oDataSources){
+				this._dataSources.push({name:o,uri:oDataSources[o].uri});
+			}
+		}
+		,
 		getStocks: function() {
 			return this._stocks;
 		},
@@ -57,8 +66,19 @@ sap.ui.define([
 		setStock_Favorite: function(jsonData) {
 			this._stock_favorite = jsonData;
 		},
+		getDataSources:function(){
+			return this._dataSources;
+		},
+		getDataSourceByName:function(sname){
+			var oDataSource = this._dataSources.find(function(obj){return obj.name === sname;});
+			if(oDataSource){
+				return oDataSource.uri;
+			}
+		}
+		,
 		_stocks: [],
 		_stock_equity: {},
-		_stock_favorite: []
+		_stock_favorite: [],
+		_dataSources:[]
 	});
 });
