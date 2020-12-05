@@ -1,5 +1,5 @@
 {
-	"_version": "1.5.0",
+	"_version": "1.6.0",
 	"sap.app": {
 		"id": "heli.ui5.controls",
 		"type": "application",
@@ -10,7 +10,7 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"sourceTemplate": {
-			"id": "servicecatalog.connectivityComponent",
+			"id": "servicecatalog.connectivityComponentForManifest",
 			"version": "0.0.0"
 		},
 		"dataSources": {
@@ -36,6 +36,13 @@
 					"odataVersion": "2.0",
 					"localUri": "localService/ZHELIV2_SRV/metadata.xml"
 				}
+			},
+			"ICA_MATCHING_ITEM_SRV": {
+				"uri": "/sap/opu/odata/sap/ICA_MATCHING_ITEM_SRV/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/ICA_MATCHING_ITEM_SRV/metadata.xml"
+				}
 			}
 		}
 	},
@@ -57,7 +64,8 @@
 		"supportedThemes": [
 			"sap_hcb",
 			"sap_belize"
-		]
+		],
+		"fullWidth": true
 	},
 	"sap.ui5": {
 		"rootView": {
@@ -65,7 +73,7 @@
 			"type": "XML"
 		},
 		"dependencies": {
-			"minUI5Version": "1.30.0",
+			"minUI5Version": "1.71.22",
 			"libs": {
 				"sap.collaboration": {},
 				"sap.m": {},
@@ -85,11 +93,10 @@
 		"config": {
 			"fullWidth": "true",
 			"sapFiori2Adaptation": true
-		}
-		,
+		},
 		"contentDensities": {
 			"compact": true,
-			"cozy": true
+			"cozy": false
 		},
 		"models": {
 			"i18n": {
@@ -107,6 +114,16 @@
 				},
 				"dataSource": "ZHELIV2_SRV",
 				"preload": false
+			},
+			"ER9500": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ICA_MATCHING_ITEM_SRV",
+				"preload": true
 			}
 		},
 		"resources": {

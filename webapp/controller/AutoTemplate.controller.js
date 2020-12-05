@@ -1,15 +1,19 @@
 sap.ui.define([
 	"heli/ui5/controls/controller/BaseController",
 	"sap/m/MessageToast",
-	"heli/ui5/controls/util"
-], function(Controller, MessageToast, util) {
+	"heli/ui5/controls/util",
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/odata/v2/ODataModel",
+	"../util/MyTemplates"
+], function(Controller, MessageToast, util,JSONModel,ODataModel,MyTemplates) {
 	"use strict";
 	var iFixedRows = 3;
-	var iTempData =
-		"[\"MeetupID\",\"Title\",\"EventDate\",\"Description\",\"HostedBy\",\"ContactPhone\",\"Address\",\"Country\",\"Latitude\",\"Longitude\",\"HostedById\",\"Location\"]";
+	var iTempData = "[{\"name\":\"MeetupID\"},{\"name\":\"Title\"},{\"name\":\"EventDate\"},{\"name\":\"Description\"}]";
 
 	return Controller.extend("heli.ui5.controls.controller.AutoTemplate", {
-
+		
+		_oMetaDataOdataModel:null,
+		_strDataSource:"",
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -17,7 +21,9 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			this._addHideMasterButton();
-			this.byId("TDataSource").setValue(iTempData);
+			this.byId("ceFields").setValue(iTempData);
+			this._initDataModel();
+			
 		},
 
 		/**
@@ -46,9 +52,9 @@ sap.ui.define([
 		//
 		//	}
 		onBuildSmartFilterBarConfigure: function() {
-			var oDdic = this._getDataSource();
+			var oDdic = this._getFields();
 			if (oDdic) {
-				var strConfigure = this._buildFilterConfigure(oDdic, 2, "");
+				var strConfigure = MyTemplates.buildFilterConfigure(oDdic, 2, "");
 				this._getResult().setValue(strConfigure);
 
 			} else {
@@ -77,70 +83,126 @@ sap.ui.define([
 			this._subRows(oResult);
 		},
 		onMTableTemplate: function() {
-			var ddic = this._getDataSource();
-			var result = this._getMTableHeader();
-			result += this._getMTableColumns(ddic);
-			result += this._getMTableItems(ddic);
+			var ddic = this._getFields();
+			var result = MyTemplates.buildMTable(ddic);
 			this._getResult().setValue(result);
 		},
+		onChangeDataSource:function(oEvent){
+			if(oEvent.getParameter("itemPressed")){
+				var oDataName = oEvent.getParameter("value");
+				var oDataUri = this.getOwnerComponent().getDataSourceByName(oDataName);
+				this._strDataSource = oDataName;
+				if(oDataUri){
+					this._oMetaDataOdataModel = new ODataModel(oDataUri);
+					this._oMetaDataOdataModel.attachMetadataLoaded(this.onMetaDataOdataModelloaded.bind(this));
+				}
+			}
+		},
+		onMetaDataOdataModelloaded:function(oEvent){
+			
+			var oSource = oEvent.getSource();
+			var oMetadata = oSource.getMetaModel().oMetadata;
+			var aEntityType = oMetadata.oMetadata.dataServices.schema[0].entityType;
+			var oEntityModel = new JSONModel(aEntityType);
+			this.getView().setModel(oEntityModel,"oEntityModel");
+		},
+		onChangeEntitySet:function(oEvent){
+			if(oEvent.getParameter("itemPressed")){
+				var aEntitys = this.getView().getModel("oEntityModel").getData();
+				var strEntityName = oEvent.getParameter("value");
+				var oEntity = aEntitys.find(function(obj){return obj.name === strEntityName;});
+				var oFields = [];
+				if(oEntity){
+					oFields = oFields.concat(oEntity.property);
+				}
+				oFields.forEach(function(obj){delete obj.extensions;});
+				var oFieldsModel = new JSONModel(oFields);
+				this.getView().setModel(oFieldsModel,"oFieldModel");
+				
+				var ceFieldCode = [];
+				ceFieldCode = ceFieldCode.concat(oFields);
+				// copy object
+				//Object.assign(ceFieldCode,oFields);
+				//ceFieldCode.forEach(function(obj){delete obj.extensions;});
+
+
+				this.byId("ceFields").setValue(JSON.stringify(ceFieldCode));
+			}
+		},
+		onLoaDataFromCode:function(oEvent){
+			var strFields = this.byId("ceFields").getValue();
+			var aFields = JSON.parse(strFields);
+			var oJsonModel = this.getView().getModel("oFieldModel");
+			if(!oJsonModel){
+				oJsonModel = new JSONModel(aFields);
+			}else{
+				oJsonModel.setData(aFields);
+			}
+			this.getView().setModel(oJsonModel,"oFieldModel");
+			var oIconTabFilter = this.byId("IFTTable");
+			this.byId("ITBar1").setSelectedItem(oIconTabFilter);
+			//this.byId("ITBar1").fireSelect({item:oIconTabFilter,key:oIconTabFilter.getId()});
+		},
+		onSelectIconTabBar:function(oEvent){
+			var strITFId = oEvent.getParameter("item").getId().replace("__xmlview2--","");
+			switch(strITFId){
+				case "ITFCode":
+					//var strCode = this.byId("ceFields").getValue();
+					//this.byId("ceFields").setValue(strCode);
+				break;
+				case "IFTTable":
+					var strFields = this.byId("ceFields").getValue();
+					var aFields = JSON.parse(strFields);
+					var oJsonModel = this.getView().getModel("oFieldModel");
+					if(!oJsonModel){
+						oJsonModel = new JSONModel(aFields);
+					}
+					this.getView().setModel(oJsonModel,"oFieldModel");
+					break;
+			}
+		},
+		onUITableTemplate:function(oEvent){
+			
+		},
+		onFormTemplate:function(oEvent){
+			
+		},
+		onWorkListTemplate:function(oEvent){
+			
+		}
+		,
+		_initDataModel:function(){
+			var jsonDataSource = this.getOwnerComponent().getDataSources();
+			var oDataModel = new JSONModel(jsonDataSource);
+			this.getView().setModel(oDataModel,"ODataModel");
+		}
+		,
 		_getResult: function() {
 			return this.byId("TResult");
 		},
-		_getDataSource: function() {
-			var oControl = this.byId("TDataSource");
-			var strDataSource = oControl.getValue();
-			try {
-				var jsonData = JSON.parse(strDataSource);
-				return jsonData;
-			} catch (error) {
-				MessageToast.show(error.Message);
+		_getFields: function() {
+			var oFieldModel = this.getView().getModel("oFieldModel");
+			var aResult = [];
+			var aFields = {};
+			if(oFieldModel){
+				 aFields = oFieldModel.getData();
+				var oTabField = this.byId("tabField");
+				var aSelectedIndices = oTabField.getSelectedIndices();
+				aResult = [].concat( aFields.filter(function(obj,index){
+											return index === aSelectedIndices.find(function(selectedObj){
+																					return selectedObj === index;});  
+					 
+										   }));
+				
 			}
+			else{
+				var strFields = this.byId("ceFields").getValue();
+				 aFields = JSON.parse(strFields);
+				 aResult = aResult.concat(aFields);
+			}
+			return aResult;
 		},
-		_getFilterConfigureTemplate: function(fieldName, controlType, filterType, index, mandatory, show) {
-			var result = "<smartfilterbar:ControlConfiguration groupId=\"_BASIC\" displayBehaviour=\"idAndDescription\" ";
-			if (!fieldName) {
-				return undefined;
-			}
-			if (controlType) {
-				result += " controlType=\"" + controlType + "\" ";
-			}
-
-			if (filterType) {
-				result += " filterType=\" " + filterType + "\" ";
-			} else {
-				result += " filterType=\"single\" ";
-			}
-
-			if (index) {
-				result += " index=\"" + index + "\"";
-			}
-
-			if (mandatory === "mandatory") {
-				result += " mandatory=\"mandatory\" ";
-			} else {
-				result += " mandatory=\"" + mandatory + "\" ";
-			}
-
-			if (show) {
-				result += " visible=\"true\" ";
-			} else {
-				result += " visible=\"false\" ";
-			}
-
-			result += " id=\"filter." + fieldName + "\" ";
-			result += " key=\"" + fieldName + "\" ";
-
-			result += " /> \r\n";
-			return result;
-		},
-		_buildFilterConfigure: function(ddic, startIndex, keyPrefix) {
-			var result = "";
-			for (var field in ddic) {
-				result += this._getFilterConfigureTemplate(keyPrefix + ddic[field], null, null, startIndex, "auto", false);
-				startIndex++;
-			}
-			return result;
-		},
+		
 		_addRows: function(oControl) {
 			var iCountRows = oControl.getRows();
 			oControl.setRows(iCountRows + iFixedRows);
@@ -150,28 +212,6 @@ sap.ui.define([
 			if (iCountRows > iFixedRows) {
 				oControl.setRows(iCountRows - iFixedRows);
 			}
-		},
-		_getMTableHeader: function() {
-			return "<Table id=\"{Table1}\" alternateRowColors=\"true\" backgroundDesign=\"Transparent\" headerText=\"Header\" mode=\"SingleSelect\" noDataText=\"No Data\" items=\"{TableSet}\" >";
-		},
-		_getMTableColumn: function(Column) {
-			return "<Column> \r\n      <Text text=\"" + Column + "\" />  \r\n  </Column> \r\n";
-		},
-		_getMTableColumns: function(ddic) {
-			var result = "<columns> \r\n";
-			for (var ind in ddic) {
-				result += this._getMTableColumn(ddic[ind]) + " \r\n ";
-			}
-			result += "</columns> \r\n";
-			return result;
-		},
-		_getMTableItems: function(ddic) {
-			var result = "<items>	\r\n <ColumnListItem type=\"Active\" press=\"onPress1\">	\r\n <cells> \r\n";
-			for (var ind in ddic) {
-				result += "<Input value=\"{" + ddic[ind] + "}\"></Input> \r\n";
-			}
-			result += "</cells> \r\n </ColumnListItem> \r\n </items> </Table>\r\n";
-			return result;
 		}
 
 	});

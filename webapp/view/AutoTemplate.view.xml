@@ -1,11 +1,83 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="heli.ui5.controls.controller.AutoTemplate"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc"
+		  xmlns:table="sap.ui.table"
+		  xmlns="sap.m" 
+		  xmlns:codeEdit="sap.ui.codeeditor"
+		  controllerName="heli.ui5.controls.controller.AutoTemplate"
+		  xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Auto Build UI Parameter">
 		<content>
 			<HBox>
+				
 				<Panel headerText="DataSource">
+					<VBox>
+						<HBox >
+							<Label text="DataSource:"></Label>
+							<ComboBox id="comboDataSource" class="sapUiSmallMarginEnd" items="{ODataModel>/}" change="onChangeDataSource">
+								<items>
+									<core:Item key="{ODataModel>uri}" text="{ODataModel>name}"></core:Item>
+								</items>
+							</ComboBox>
+							<Label text="EntitySet:"></Label>
+							<ComboBox id="comboEntitySet" items="{oEntityModel>/}" change="onChangeEntitySet" class="sapUiSmallMarginEnd">
+								<items>
+									<core:Item key="{oEntityModel>name}" text="{oEntityModel>name}"></core:Item>
+								</items>
+							</ComboBox>
+							<Button text="LoaDataFromCode" press="onLoaDataFromCode"></Button>
+						  </HBox>
+					</VBox>
 					<HBox>
-						<TextArea cols="120" rows="5" id="TDataSource"></TextArea>
+						<!--select="onSelectIconTabBar"-->
+						<IconTabBar class="sapUiResponsiveContentPadding" id="ITBar1"  >
+							<items>
+								<IconTabFilter icon="sap-icon://source-code" id="ITFCode" >
+									<TextArea cols="120" rows="5" id="TDataSource" visible="false"></TextArea>
+									<codeEdit:CodeEditor type="json" id="ceFields" height="300px" width="1200px">
+										
+									</codeEdit:CodeEditor>
+								</IconTabFilter>
+								<IconTabFilter icon="sap-icon://table-view" id="IFTTable">
+									<table:Table rows="{oFieldModel>/}" id="tabField">
+										<table:columns>
+											<table:Column sortProperty="name" filterProperty="name" autoResizable="true" >
+												<Label text="name"></Label>
+												<table:template>
+													<Text text="{oFieldModel>name}"></Text>
+												</table:template>	
+											</table:Column>
+											<table:Column sortProperty="type" filterProperty="type" autoResizable="true" >
+												<Label text="type"></Label>
+												<table:template>
+													<Text text="{oFieldModel>type}"></Text>
+												</table:template>	
+											</table:Column>
+											<table:Column sortProperty="enableSetting" filterProperty="enableSetting" autoResizable="true" >
+												<Label text="enableSetting"></Label>
+												<table:template>
+													<CheckBox enabled="{oFieldModel>enableSetting}"/>
+												</table:template>	
+											</table:Column>
+											<table:Column sortProperty="row" filterProperty="row" autoResizable="true" >
+												<Label text="row"></Label>
+												<table:template>
+													<Input value="{oFieldModel>row}" editable="true" width="40px"></Input>
+												</table:template>	
+											</table:Column>
+											<table:Column sortProperty="col" filterProperty="col" autoResizable="true" >
+												<Label text="col"></Label>
+												<table:template>
+													<Input value="{oFieldModel>col}" editable="true" width="40px"></Input>
+												</table:template>	
+											</table:Column>
+										</table:columns>
+										
+									</table:Table>
+								</IconTabFilter>
+								
+							</items>
+						</IconTabBar>
+						
 						<VBox>
 							<Button icon="sap-icon://add" press="onDataSourceAddRows"></Button>
 							<Button icon="sap-icon://less" press="onDataSourceSubRows"></Button>
@@ -13,7 +85,18 @@
 					</HBox>
 				</Panel>
 			</HBox>
-			<OverflowToolbar>
+			<MenuButton text="Build Template">
+				<Menu >
+					<items>
+						<MenuItem text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter" />
+						<MenuItem text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view" />
+						<MenuItem text="UI.Table Template" press="onUITableTemplate" icon="sap-icon://table-view" />
+						<MenuItem text="Form Template" press="onFormTemplate" icon="sap-icon://form" />
+						<MenuItem text="WorkListTemplate" press="onWorkListTemplate" icon="sap-icon://form" />
+					</items>
+				</Menu>
+			</MenuButton>
+			<OverflowToolbar visible="false">
 				<content>
 					<Button text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter"></Button>
 					<Button text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view"></Button>
@@ -23,7 +106,8 @@
 				<VBox>
 					<Panel headerText="Result">
 						<HBox>
-							<TextArea cols="120" rows="15" id="TResult" editable="false"></TextArea>
+							<!--<TextArea cols="120" rows="15" id="TResult" editable="false"></TextArea>-->
+							<codeEdit:CodeEditor type="xml" id="TResult" height="300px" width="1200px"></codeEdit:CodeEditor>
 							<VBox>
 								<Button icon="sap-icon://add" press="onResultAddRows"></Button>
 								<Button icon="sap-icon://less" press="onResultSubRows"></Button>

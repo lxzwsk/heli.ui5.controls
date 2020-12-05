@@ -14,8 +14,8 @@ sap.ui.define([], function() {
 				name: "Basic_Button",
 				desc: "Basic Button",
 				leaf: true,
-				icon: "sap-icon://dropdown",
-				expand:true
+				icon: "sap-icon://dropdown"
+
 			}]
 		}, {
 			name: "UITable",
@@ -90,7 +90,8 @@ sap.ui.define([], function() {
 				name: "AutoTemplate",
 				desc: "UITemplateBuild",
 				icon: "sap-icon://bbyd-dashboard",
-				leaf: true
+				leaf: true,
+				expand:true
 
 			},{
 				name:"GenerateCode",
