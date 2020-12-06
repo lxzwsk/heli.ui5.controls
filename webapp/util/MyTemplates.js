@@ -85,7 +85,7 @@ sap.ui.define([], function() {
 		return "	</f:formContainers> \r\n";
 	};
 	var _startFormContainer = function(index){
-		var strResult = "		<f:FormContainer id=\"formContainer" + index + "\">\r\n";
+		var strResult = "		<f:FormContainer id=\"formContainer" + index.toString() + "\">\r\n";
 		strResult += "				<f:formElements> \r\n";
 		return strResult;
 	};
@@ -109,14 +109,15 @@ sap.ui.define([], function() {
 		strResult += _buildLayoutForForm(iColumnItems);
 		strResult += _startFormContainers();
 		
-		var aContainer = new Array(oParams.FormColumns);
-		for(var i = 0 ; i < aContainer.length; i++){
-			aContainer[i] = _startFormContainer(i);
+		var aContainer = [];
+		for(var i = 0 ; i < oParams.FormColumns; i++){
+			aContainer.push(_startFormContainer(i));
+		
 		}
 		
 		i = 0;
 		for(var o in ddic){
-			if (i === 3) i = 0;
+			if (i === oParams.FormColumns) i = 0;
 			aContainer[i] += _buildFormElement(ddic[o]);
 			i++;
 		}
