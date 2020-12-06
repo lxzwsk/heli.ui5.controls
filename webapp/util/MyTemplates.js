@@ -46,7 +46,7 @@ sap.ui.define([], function() {
 	var _getMTableColumns =  function(ddic) {
 			var result = "<columns> \r\n";
 			for (var ind in ddic) {
-				result += _getMTableColumn(ddic[ind]["name"]) + " \r\n ";
+				result += _getMTableColumn(ddic[ind]["desc"]) + " \r\n ";
 			}
 			result += "</columns> \r\n";
 			return result;
@@ -59,7 +59,78 @@ sap.ui.define([], function() {
 			result += "</cells> \r\n </ColumnListItem> \r\n </items> \r\n </Table>\r\n";
 			return result;
 		};
-	
+	var _startForm = function(){
+		var strResult = "<f:Form id=\"basicForm\">\r\n";
+		return strResult;
+	};
+	var _buildLayoutForForm = function(iColumnItems){
+		
+		var strResult = "";
+		strResult += "	<f:layout>\r\n" ;
+		strResult += "		<f:ResponsiveGridLayout  id=\"idGridLayout\" columnsXL=\"" + iColumnItems + "\" columnsL=\"" + iColumnItems + "\" columnsM=\""+ iColumnItems +  "\"\r\n" ;
+		strResult += "					 labelSpanXL=\"4\" labelSpanL=\"4\" labelSpanM=\"4\"  labelSpanS=\"12\" adjustLabelSpan=\"false\"\r\n" ;
+		strResult += "					 emptySpanXL=\"0\" emptySpanL=\"0\" emptySpanM=\"0\" emptySpanS=\"0\"\r\n" ;
+		strResult += "					 singleContainerFullSize=\"false\"\r\n" ;
+		strResult += "						/>\r\n" ;
+		strResult += "	</f:layout>\r\n" ;
+		return strResult;
+	};
+	var _endForm = function(){
+		return "</f:Form> \r\n";
+	};
+	var _startFormContainers = function(){
+		return "	<f:formContainers>\r\n";
+	};
+	var _endFormContainers = function(){
+		return "	</f:formContainers> \r\n";
+	};
+	var _startFormContainer = function(index){
+		var strResult = "		<f:FormContainer id=\"formContainer" + index + "\">\r\n";
+		strResult += "				<f:formElements> \r\n";
+		return strResult;
+	};
+	var _endFormContainer = function(){
+		var strResult = "			</f:formElements>\r\n";
+		strResult += "		</f:FormContainer> \r\n";
+		return strResult;
+	};
+	var _buildFormElement = function(ddic){
+		var strResult = "";	
+		strResult += "					<f:FormElement label=\"" + ddic.desc + "\" id=\"formElement" + ddic.name + "\"> \r\n";
+		strResult += "						<f:fields> \r\n";
+		strResult += "							<Input value=\"{/" + ddic.name + "}\" id=\"idInput" + ddic.name + "\"></Input> \r\n";
+		strResult += "						</f:fields> \r\n";
+		strResult += "					</f:FormElement> \r\n";
+		return strResult;
+	};
+	var _buildForm = function(ddic,oParams){
+		var iColumnItems = 12 / oParams.FormColumns;
+		var strResult = _startForm();
+		strResult += _buildLayoutForForm(iColumnItems);
+		strResult += _startFormContainers();
+		
+		var aContainer = new Array(oParams.FormColumns);
+		for(var i = 0 ; i < aContainer.length; i++){
+			aContainer[i] = _startFormContainer(i);
+		}
+		
+		i = 0;
+		for(var o in ddic){
+			if (i === 3) i = 0;
+			aContainer[i] += _buildFormElement(ddic[o]);
+			i++;
+		}
+		
+		
+		for(i = 0 ; i < aContainer.length; i++){
+			aContainer[i] += _endFormContainer();
+			strResult += aContainer[i];
+		}
+		
+		strResult += _endFormContainers();
+		strResult += _endForm();
+		return strResult;
+	};
 	return {
 		buildFilterConfigure:function(ddic, startIndex, keyPrefix){
 			var result = "";
@@ -75,8 +146,8 @@ sap.ui.define([], function() {
 			result += _getMTableItems(ddic);
 			return result;
 		},
-		buildForm:function(ddic){
-			return "";
+		buildForm:function(ddic,uiParams){
+			return _buildForm(ddic, uiParams);
 		}
 	};
 	

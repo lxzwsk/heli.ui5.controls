@@ -54,6 +54,12 @@
 													<Text text="{oFieldModel>name}"></Text>
 												</table:template>	
 											</table:Column>
+											<table:Column sortProperty="desc" filterProperty="desc" autoResizable="true" >
+												<Label text="desc"></Label>
+												<table:template>
+													<Text text="{oFieldModel>desc}"></Text>
+												</table:template>	
+											</table:Column>
 											<table:Column sortProperty="type" filterProperty="type" autoResizable="true" >
 												<Label text="type"></Label>
 												<table:template>
@@ -111,7 +117,15 @@
 						<FlexItemData alignSelf="Center"></FlexItemData>
 					</layoutData>
 				</Label>
-				<Input value="{UIModel>/DataAlias}" width="200px" id="InputModelAlias"></Input>
+				<Input value="{UIModel>/DataAlias}" width="200px" id="InputModelAlias" class="sapUiSmallMarginEnd"></Input>
+				<HBox visible="{UIModel>/ShowFormColumns}" >
+					<Label text="Columns">
+						<layoutData>
+							<FlexItemData alignSelf="Center"></FlexItemData>
+						</layoutData>
+					</Label>
+					<Input value="{UIModel>/FormColumns}" width="2rem"></Input>
+				</HBox>
 				<OverflowToolbar visible="false">
 					<content>
 						<Button text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter"></Button>

@@ -8,7 +8,7 @@ sap.ui.define([
 ], function(Controller, MessageToast, util,JSONModel,ODataModel,MyTemplates) {
 	"use strict";
 	var iFixedRows = 3;
-	var iTempData = "[{\"name\":\"MeetupID\"},{\"name\":\"Title\"},{\"name\":\"EventDate\"},{\"name\":\"Description\"}]";
+	var iTempData = "[{\"name\":\"MeetupID\",\"desc\":\"管道ID\"},{\"name\":\"Title\",\"desc\":\"抬头\"},{\"name\":\"EventDate\",\"desc\":\"发生日期\"},{\"name\":\"Description\",\"desc\":\"描述\"}]";
 
 	return Controller.extend("heli.ui5.controls.controller.AutoTemplate", {
 		
@@ -169,8 +169,8 @@ sap.ui.define([
 		onFormTemplate:function(oEvent){
 			var oFields = this._getFields();
 			var uiParams = this._getUiParams();
-			var strResult = MyTemplates.buildForm(oFields);
-			
+			var strResult = MyTemplates.buildForm(oFields,uiParams);
+			this.setModelProperty("UIModel","Result",strResult);           
 			
 		},
 		onWorkListTemplate:function(oEvent){
@@ -185,6 +185,8 @@ sap.ui.define([
 			var uiParameters = {
 				DataAlias:"FormModel",
 				Result:"",
+				FormColumns:3,
+				ShowFormColumns:true,
 				Fields:iTempData
 			};
 			var UIModel = new JSONModel(uiParameters);
