@@ -21,7 +21,7 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			this._addHideMasterButton();
-			this.byId("ceFields").setValue(iTempData);
+			//this._getFieldsForCode(iTempData);
 			this._initDataModel();
 			
 		},
@@ -55,7 +55,7 @@ sap.ui.define([
 			var oDdic = this._getFields();
 			if (oDdic) {
 				var strConfigure = MyTemplates.buildFilterConfigure(oDdic, 2, "");
-				this._getResult().setValue(strConfigure);
+				this._setResult(strConfigure);
 
 			} else {
 				MessageToast.show("数据有误，请检查");
@@ -63,7 +63,7 @@ sap.ui.define([
 
 		},
 		onCopy: function() {
-			var strResult = this._getResult().getValue();
+			var strResult = this._getResult();
 			util.copyStringToClipboard(strResult, "copy success", " copy failure");
 		},
 		onDataSourceAddRows: function() {
@@ -85,7 +85,7 @@ sap.ui.define([
 		onMTableTemplate: function() {
 			var ddic = this._getFields();
 			var result = MyTemplates.buildMTable(ddic);
-			this._getResult().setValue(result);
+			this._setResult(result);
 		},
 		onChangeDataSource:function(oEvent){
 			if(oEvent.getParameter("itemPressed")){
@@ -126,11 +126,12 @@ sap.ui.define([
 				//ceFieldCode.forEach(function(obj){delete obj.extensions;});
 
 
-				this.byId("ceFields").setValue(JSON.stringify(ceFieldCode));
+				this._setFieldForCode(JSON.stringify(ceFieldCode));
+				this._selectedByTable();
 			}
 		},
 		onLoaDataFromCode:function(oEvent){
-			var strFields = this.byId("ceFields").getValue();
+			var strFields = this._getFieldsForCode();
 			var aFields = JSON.parse(strFields);
 			var oJsonModel = this.getView().getModel("oFieldModel");
 			if(!oJsonModel){
@@ -139,19 +140,20 @@ sap.ui.define([
 				oJsonModel.setData(aFields);
 			}
 			this.getView().setModel(oJsonModel,"oFieldModel");
-			var oIconTabFilter = this.byId("IFTTable");
-			this.byId("ITBar1").setSelectedItem(oIconTabFilter);
+			this._selectedByTable();
+			//var oIconTabFilter = this.byId("IFTTable");
+			//this.byId("ITBar1").setSelectedItem(oIconTabFilter);
 			//this.byId("ITBar1").fireSelect({item:oIconTabFilter,key:oIconTabFilter.getId()});
 		},
 		onSelectIconTabBar:function(oEvent){
 			var strITFId = oEvent.getParameter("item").getId().replace("__xmlview2--","");
 			switch(strITFId){
 				case "ITFCode":
-					//var strCode = this.byId("ceFields").getValue();
-					//this.byId("ceFields").setValue(strCode);
+					//var strCode = this._getFieldsForCode();
+					//this._setFieldsForCode(strCode);
 				break;
 				case "IFTTable":
-					var strFields = this.byId("ceFields").getValue();
+					var strFields = this._getFieldsForCode();
 					var aFields = JSON.parse(strFields);
 					var oJsonModel = this.getView().getModel("oFieldModel");
 					if(!oJsonModel){
@@ -165,6 +167,10 @@ sap.ui.define([
 			
 		},
 		onFormTemplate:function(oEvent){
+			var oFields = this._getFields();
+			var uiParams = this._getUiParams();
+			var strResult = MyTemplates.buildForm(oFields);
+			
 			
 		},
 		onWorkListTemplate:function(oEvent){
@@ -175,10 +181,31 @@ sap.ui.define([
 			var jsonDataSource = this.getOwnerComponent().getDataSources();
 			var oDataModel = new JSONModel(jsonDataSource);
 			this.getView().setModel(oDataModel,"ODataModel");
+			
+			var uiParameters = {
+				DataAlias:"FormModel",
+				Result:"",
+				Fields:iTempData
+			};
+			var UIModel = new JSONModel(uiParameters);
+			this.getView().setModel(UIModel,"UIModel");
 		}
 		,
 		_getResult: function() {
-			return this.byId("TResult");
+			return this.getModelProperty("UIModel","Result");
+		},
+		_setResult:function(strResult){
+			this.setModelProperty("UIModel","Result",strResult);
+		},
+		_getFieldsForCode:function(){
+			return this.getModelProperty("UIModel","Fields");
+		},
+		_setFieldsForCode:function(strFields){
+			this.setModelProperty("UIModel","Fields",strFields);
+		},
+		_selectedByTable:function(){
+			var oIconTabFilter = this.byId("IFTTable");
+			this.byId("ITBar1").setSelectedItem(oIconTabFilter);
 		},
 		_getFields: function() {
 			var oFieldModel = this.getView().getModel("oFieldModel");
@@ -196,13 +223,15 @@ sap.ui.define([
 				
 			}
 			else{
-				var strFields = this.byId("ceFields").getValue();
+				var strFields = this._getFieldsForCode();
 				 aFields = JSON.parse(strFields);
 				 aResult = aResult.concat(aFields);
 			}
 			return aResult;
 		},
-		
+		_getUiParams:function(){
+			return this.getView().getModel("UIModel").getData();	
+		},
 		_addRows: function(oControl) {
 			var iCountRows = oControl.getRows();
 			oControl.setRows(iCountRows + iFixedRows);

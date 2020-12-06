@@ -43,7 +43,7 @@ sap.ui.define([
 		};
 
 	};
-
+	var sPath = null;
 	var fnBuildRouteByTreeData = function() {
 		var jsonConfig = {
 			routerClass: "sap.m.routing.Router",
@@ -162,13 +162,15 @@ sap.ui.define([
 			}
 	};
 	var fnGetDefaultViewPath = function(nodes){
-		let sPath = null;
+		if(sPath){
+			return sPath;
+		}
 		for(let item of nodes){
 			if(item.expand){
 				sPath = item.name ;
-				break;
+				return sPath;
 			}
-			if(item.child){
+			if(item.child && !sPath){
 				sPath = fnGetDefaultViewPath(item.child);
 			}
 		}

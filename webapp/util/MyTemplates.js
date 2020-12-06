@@ -74,6 +74,9 @@ sap.ui.define([], function() {
 			result += _getMTableColumns(ddic);
 			result += _getMTableItems(ddic);
 			return result;
+		},
+		buildForm:function(ddic){
+			return "";
 		}
 	};
 	

@@ -45,6 +45,14 @@ sap.ui.define([
 			oButton.attachPress(this.onHideMaster.bind(this));
 			oBar.addAggregation("content", oButton);
 			oPage.insertContent(oBar, 0);
+		},
+		getModelProperty:function(strModelName,strPropertyName){
+			var oModel = this.getView().getModel(strModelName);
+			return oModel.getProperty("/"+strPropertyName);
+		},
+		setModelProperty:function(strModelName,strPropertyName,oValue){
+			var oModel = this.getView().getModel(strModelName);
+			oModel.setProperty("/"+strPropertyName,oValue);
 		}
 
 	});
