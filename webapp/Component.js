@@ -14,7 +14,7 @@ sap.ui.define([
 
 		metadata: {
 			manifest: "json",
-			routing: util.buildRoute()
+			routing: util.buildRoute() 
 		},
 
 		/**
