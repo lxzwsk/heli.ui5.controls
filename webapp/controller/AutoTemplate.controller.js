@@ -93,7 +93,7 @@ sap.ui.define([
 				var oDataUri = this.getOwnerComponent().getDataSourceByName(oDataName);
 				this._strDataSource = oDataName;
 				if(oDataUri){
-					this._oMetaDataOdataModel = new ODataModel(oDataUri);
+					this._oMetaDataOdataModel = new ODataModel(oDataUri,{password:"1qaz2WSX",user:"C5283127"});
 					this._oMetaDataOdataModel.attachMetadataLoaded(this.onMetaDataOdataModelloaded.bind(this));
 				}
 			}

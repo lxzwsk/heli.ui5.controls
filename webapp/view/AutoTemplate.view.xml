@@ -9,8 +9,8 @@
 		<content>
 			<HBox>
 				
-				<Panel headerText="DataSource">
-					<VBox>
+				<!--<Panel headerText="DataSource">-->
+				<VBox>
 						<HBox >
 							<Label text="DataSource:" labelFor="comboDataSource">
 								<layoutData>
@@ -33,15 +33,47 @@
 								</items>
 							</ComboBox>
 							<Button text="LoaDataFromCode" press="onLoaDataFromCode"></Button>
+							<MenuButton text="Build Template" class="sapUiSmallMarginEnd">
+							<Menu >
+								<items>
+									<MenuItem text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter" />
+									<MenuItem text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view" />
+									<MenuItem text="UI.Table Template" press="onUITableTemplate" icon="sap-icon://table-view" />
+									<MenuItem text="Form Template" press="onFormTemplate" icon="sap-icon://form" />
+									<MenuItem text="WorkListTemplate" press="onWorkListTemplate" icon="sap-icon://form" />
+								</items>
+							</Menu>
+						</MenuButton>
+						
+						<Label text="ModelAlias" labelFor="InputModelAlias" vAlign="Middle" class="sapUiSmallMarginEnd">
+							<layoutData>
+								<FlexItemData alignSelf="Center"></FlexItemData>
+							</layoutData>
+						</Label>
+						<Input value="{UIModel>/DataAlias}" width="150px" id="InputModelAlias" class="sapUiSmallMarginEnd"></Input>
+						<HBox visible="{UIModel>/ShowFormColumns}" >
+							<Label text="Columns">
+								<layoutData>
+									<FlexItemData alignSelf="Center"></FlexItemData>
+								</layoutData>
+							</Label>
+							<Input value="{UIModel>/FormColumns}" width="2rem"></Input>
+						</HBox>
+						<OverflowToolbar visible="false">
+							<content>
+								<Button text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter"></Button>
+								<Button text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view"></Button>
+							</content>
+						</OverflowToolbar>
 						  </HBox>
-					</VBox>
+				
 					<HBox>
 						<!--select="onSelectIconTabBar"-->
 						<IconTabBar class="sapUiResponsiveContentPadding" id="ITBar1"  >
 							<items>
 								<IconTabFilter icon="sap-icon://source-code" id="ITFCode" >
 									<TextArea cols="120" rows="5" id="TDataSource" visible="false"></TextArea>
-									<codeEdit:CodeEditor type="json" id="ceFields" height="300px" width="1200px" value="{UIModel>/Fields}">
+									<codeEdit:CodeEditor type="json" id="ceFields" height="500px" width="1200px" value="{UIModel>/Fields}">
 										
 									</codeEdit:CodeEditor>
 								</IconTabFilter>
@@ -88,66 +120,23 @@
 										
 									</table:Table>
 								</IconTabFilter>
-								
+								<IconTabFilter icon="sap-icon://complete" id="IFTResult">
+									<codeEdit:CodeEditor type="xml" id="TResult" height="500px" width="1200px" value="{UIModel>/Result}"></codeEdit:CodeEditor>
+								</IconTabFilter>
 							</items>
 						</IconTabBar>
 						
 						<VBox>
 							<Button icon="sap-icon://add" press="onDataSourceAddRows"></Button>
 							<Button icon="sap-icon://less" press="onDataSourceSubRows"></Button>
+							<Button icon="sap-icon://copy" press="onCopy"></Button>
 						</VBox>
 					</HBox>
-				</Panel>
+				</VBox>	
+				<!--</Panel>-->
 			</HBox>
-			<HBox>
-				<MenuButton text="Build Template" class="sapUiSmallMarginEnd">
-					<Menu >
-						<items>
-							<MenuItem text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter" />
-							<MenuItem text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view" />
-							<MenuItem text="UI.Table Template" press="onUITableTemplate" icon="sap-icon://table-view" />
-							<MenuItem text="Form Template" press="onFormTemplate" icon="sap-icon://form" />
-							<MenuItem text="WorkListTemplate" press="onWorkListTemplate" icon="sap-icon://form" />
-						</items>
-					</Menu>
-				</MenuButton>
-				
-				<Label text="ModelAlias" labelFor="InputModelAlias" vAlign="Middle" class="sapUiSmallMarginEnd">
-					<layoutData>
-						<FlexItemData alignSelf="Center"></FlexItemData>
-					</layoutData>
-				</Label>
-				<Input value="{UIModel>/DataAlias}" width="200px" id="InputModelAlias" class="sapUiSmallMarginEnd"></Input>
-				<HBox visible="{UIModel>/ShowFormColumns}" >
-					<Label text="Columns">
-						<layoutData>
-							<FlexItemData alignSelf="Center"></FlexItemData>
-						</layoutData>
-					</Label>
-					<Input value="{UIModel>/FormColumns}" width="2rem"></Input>
-				</HBox>
-				<OverflowToolbar visible="false">
-					<content>
-						<Button text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter"></Button>
-						<Button text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view"></Button>
-					</content>
-				</OverflowToolbar>
-			</HBox>
-			<HBox>
-				<VBox>
-					<Panel headerText="Result">
-						<HBox>
-							<!--<TextArea cols="120" rows="15" id="TResult" editable="false"></TextArea>-->
-							<codeEdit:CodeEditor type="xml" id="TResult" height="300px" width="1200px" value="{UIModel>/Result}"></codeEdit:CodeEditor>
-							<VBox>
-								<Button icon="sap-icon://add" press="onResultAddRows"></Button>
-								<Button icon="sap-icon://less" press="onResultSubRows"></Button>
-								<Button icon="sap-icon://copy" press="onCopy"></Button>
-							</VBox>
-						</HBox>
-					</Panel>
-				</VBox>
-			</HBox>
+		
+			
 		</content>
 	</Page>
 </mvc:View>

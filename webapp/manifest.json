@@ -44,7 +44,9 @@
 					"localUri": "localService/ICA_MATCHING_ITEM_SRV/metadata.xml"
 				}
 			}
-		}
+		},
+		"ach": "",
+		"resources": "resources.json"
 	},
 	"sap.ui": {
 		"technology": "UI5",
@@ -106,16 +108,6 @@
 				}
 			},
 			"": {
-				"type": "sap.ui.model.odata.v2.ODataModel",
-				"settings": {
-					"defaultOperationMode": "Server",
-					"defaultBindingMode": "TwoWay",
-					"defaultCountMode": "Request"
-				},
-				"dataSource": "ZHELIV2_SRV",
-				"preload": false
-			},
-			"ER9500": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
 					"defaultOperationMode": "Server",
