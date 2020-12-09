@@ -50,7 +50,7 @@
 								<FlexItemData alignSelf="Center"></FlexItemData>
 							</layoutData>
 						</Label>
-						<Input value="{UIModel>/DataAlias}" width="150px" id="InputModelAlias" class="sapUiSmallMarginEnd"></Input>
+						<Input value="{UIModel>/DataAlias}" width="150px" id="InputModelAlias" class="sapUiSmallMarginEnd" liveChange="onLiveChange"></Input>
 						<HBox visible="{UIModel>/ShowFormColumns}" >
 							<Label text="Columns">
 								<layoutData>

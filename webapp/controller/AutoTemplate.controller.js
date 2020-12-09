@@ -4,8 +4,11 @@ sap.ui.define([
 	"heli/ui5/controls/util",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/odata/v2/ODataModel",
-	"../util/MyTemplates"
-], function(Controller, MessageToast, util,JSONModel,ODataModel,MyTemplates) {
+	"../util/MyTemplates",
+	"../util/Const",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function(Controller, MessageToast, util,JSONModel,ODataModel,MyTemplates,Const,Filter,FilterOperator) {
 	"use strict";
 	var iFixedRows = 3;
 	var iTempData = "[{\"name\":\"MeetupID\",\"desc\":\"管道ID\"},{\"name\":\"Title\",\"desc\":\"抬头\"},{\"name\":\"EventDate\",\"desc\":\"发生日期\"},{\"name\":\"Description\",\"desc\":\"描述\"}]";
@@ -108,6 +111,16 @@ sap.ui.define([
 		},
 		onChangeEntitySet:function(oEvent){
 			if(oEvent.getParameter("itemPressed")){
+				
+				var getFieldLabelFromExtensions = function(aExtension){
+					if(aExtension){
+						var oExtension	= aExtension.find(function(obj){return obj.name === "label";});
+						if(oExtension){
+							return oExtension.value;
+						}
+					}
+				};
+				
 				var aEntitys = this.getView().getModel("oEntityModel").getData();
 				var strEntityName = oEvent.getParameter("value");
 				var oEntity = aEntitys.find(function(obj){return obj.name === strEntityName;});
@@ -115,7 +128,12 @@ sap.ui.define([
 				if(oEntity){
 					oFields = oFields.concat(oEntity.property);
 				}
-				oFields.forEach(function(obj){delete obj.extensions;});
+				oFields.forEach(function(obj){
+					var strLabel = getFieldLabelFromExtensions(obj.extensions);
+					obj.desc = strLabel || obj.name;
+					delete obj.extensions;
+					
+				});
 				var oFieldsModel = new JSONModel(oFields);
 				this.getView().setModel(oFieldsModel,"oFieldModel");
 				
@@ -126,8 +144,8 @@ sap.ui.define([
 				//ceFieldCode.forEach(function(obj){delete obj.extensions;});
 
 
-				this._setFieldForCode(JSON.stringify(ceFieldCode));
-				this._selectedByTable();
+				this._setFieldsForCode(JSON.stringify(ceFieldCode));
+				this._selectedTabFilterById(Const.ICONTABFILTER_IFTTABLE);
 			}
 		},
 		onLoaDataFromCode:function(oEvent){
@@ -140,7 +158,7 @@ sap.ui.define([
 				oJsonModel.setData(aFields);
 			}
 			this.getView().setModel(oJsonModel,"oFieldModel");
-			this._selectedByTable();
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTTABLE);
 			//var oIconTabFilter = this.byId("IFTTable");
 			//this.byId("ITBar1").setSelectedItem(oIconTabFilter);
 			//this.byId("ITBar1").fireSelect({item:oIconTabFilter,key:oIconTabFilter.getId()});
@@ -148,11 +166,11 @@ sap.ui.define([
 		onSelectIconTabBar:function(oEvent){
 			var strITFId = oEvent.getParameter("item").getId().replace("__xmlview2--","");
 			switch(strITFId){
-				case "ITFCode":
+				case Const.ICONTABFILTER_ITFCODE:
 					//var strCode = this._getFieldsForCode();
 					//this._setFieldsForCode(strCode);
 				break;
-				case "IFTTable":
+				case Const.ICONTABFILTER_IFTTABLE:
 					var strFields = this._getFieldsForCode();
 					var aFields = JSON.parse(strFields);
 					var oJsonModel = this.getView().getModel("oFieldModel");
@@ -170,11 +188,22 @@ sap.ui.define([
 			var oFields = this._getFields();
 			var uiParams = this._getUiParams();
 			var strResult = MyTemplates.buildForm(oFields,uiParams);
-			this.setModelProperty("UIModel","Result",strResult);           
+			this.setModelProperty("UIModel","Result",strResult); 
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 			
 		},
 		onWorkListTemplate:function(oEvent){
 			
+		},
+		onLiveChange:function(oEvent){
+			var strName = oEvent.getParameter("value");
+			var aFilter = new Filter({
+    				filters: [
+    						new Filter({path: 'name',operator:FilterOperator.Contains,value1:strName})
+    					]
+			});
+			var oFilter = new Filter([aFilter]);
+			this.byId("tabField").getBinding("rows").filter(oFilter);
 		}
 		,
 		_initDataModel:function(){
@@ -205,9 +234,10 @@ sap.ui.define([
 		_setFieldsForCode:function(strFields){
 			this.setModelProperty("UIModel","Fields",strFields);
 		},
-		_selectedByTable:function(){
-			var oIconTabFilter = this.byId("IFTTable");
+		_selectedTabFilterById:function(strId){
+			var oIconTabFilter = this.byId(strId);
 			this.byId("ITBar1").setSelectedItem(oIconTabFilter);
+			this.byId("ITBar1").setExpandable(true);
 		},
 		_getFields: function() {
 			var oFieldModel = this.getView().getModel("oFieldModel");
