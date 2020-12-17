@@ -59,10 +59,72 @@ sap.ui.define([], function() {
 			result += "</cells> \r\n </ColumnListItem> \r\n </items> \r\n </Table>\r\n";
 			return result;
 		};
+	
+	var _getUITableHeader = function(){
+		
+		var strResult =  "<table:Table id=\"reconTable\" \r\n" ;
+		strResult += "    enableBusyIndicator=\"true\" \r\n";
+		strResult += "    threshold=\"9999\" \r\n";
+		strResult += "    ariaLabelledBy=\"title\" \r\n";
+		strResult += "	  showColumnVisibilityMenu=\"true\" \r\n";
+		strResult += "    enableSelectAll=\"true\"  \r\n";
+		strResult += "    selectionMode=\"MultiToggle\" \r\n";
+		strResult += "    rowActionCount=\"1\" \r\n";
+		strResult += "    visibleRowCountMode=\"Auto\" \r\n";
+		strResult += "    rowSelectionChange=\"onRowSelectionChange\" \r\n";
+		strResult += "    width=\"100%\" \r\n";
+		strResult += "    > \r\n";
+		return strResult;
+	};	
+	
+	var _getUItableColumns = function(ddic){
+		var strResult = "	<table:columns>";
+		ddic.forEach(function(obj){
+			strResult += "	<table:Column   sortProperty=\""+obj.name+"\" filterProperty=\""+obj.name+"\" tooltip=\""+obj.desc+"\" >\r\n"; 
+			
+			strResult += "		<Label  text=\""+obj.desc+"\"  tooltip=\""+obj.desc+"\"/> \r\n";
+			
+			strResult += "		<table:template> \r\n";
+			
+			strResult += "			<Text	text=\"{"+obj.name+"}\" wrapping=\"false\" />\r\n";
+			
+			strResult += "		</table:template> \r\n";
+			
+			strResult += "		<table:customData> \r\n";
+			strResult += "			<core:CustomData id=\""+obj.name+".CustData\" key=\"p13nData\" value='\{\"columnKey\": \""+obj.name+"\",\"leadingProperty\":\""+obj.name+"\"}'/> \r\n";
+			strResult += "		</table:customData> \r\n";
+			
+			strResult += "	</table:Column> \r\n";
+			
+		});
+		strResult += "	</table:columns>";
+		return strResult;
+	};
+	
+	var _getTableActionRow = function(){
+		var strResult = "	<table:rowActionTemplate> \r\n";
+		strResult += "			<table:RowAction id=\"reconTable.RowAction\">\r\n";
+		strResult += "				<table:items> \r\n";
+		strResult += "					<table:RowActionItem id=\"reconTable.Action.toObject\" type=\"Navigation\" press=\"onNavToObject\" /> \r\n";
+		strResult += "				</table:items> \r\n";
+		strResult += "			</table:RowAction>\r\n";
+		strResult += "		</table:rowActionTemplate>\r\n";
+		return strResult;
+	};
+	var _buildUITable = function(ddic){
+		var strResult = _getUITableHeader();
+		strResult += _getUItableColumns(ddic);
+		strResult += _getTableActionRow();
+		strResult += "</table:Table>\r\n";
+		return strResult;
+	};
+	
+		
 	var _startForm = function(){
 		var strResult = "<f:Form id=\"basicForm\">\r\n";
 		return strResult;
 	};
+	
 	var _buildLayoutForForm = function(iColumnItems){
 		
 		var strResult = "";
@@ -75,25 +137,31 @@ sap.ui.define([], function() {
 		strResult += "	</f:layout>\r\n" ;
 		return strResult;
 	};
+	
 	var _endForm = function(){
 		return "</f:Form> \r\n";
 	};
+	
 	var _startFormContainers = function(){
 		return "	<f:formContainers>\r\n";
 	};
+	
 	var _endFormContainers = function(){
 		return "	</f:formContainers> \r\n";
 	};
+	
 	var _startFormContainer = function(index){
 		var strResult = "		<f:FormContainer id=\"formContainer" + index.toString() + "\">\r\n";
 		strResult += "				<f:formElements> \r\n";
 		return strResult;
 	};
+	
 	var _endFormContainer = function(){
 		var strResult = "			</f:formElements>\r\n";
 		strResult += "		</f:FormContainer> \r\n";
 		return strResult;
 	};
+	
 	var _buildFormElement = function(ddic){
 		var strResult = "";	
 		strResult += "					<f:FormElement label=\"" + ddic.desc + "\" id=\"formElement" + ddic.name + "\"> \r\n";
@@ -103,6 +171,7 @@ sap.ui.define([], function() {
 		strResult += "					</f:FormElement> \r\n";
 		return strResult;
 	};
+	
 	var _buildForm = function(ddic,oParams){
 		var iColumnItems = 12 / oParams.FormColumns;
 		var strResult = _startForm();
@@ -132,6 +201,7 @@ sap.ui.define([], function() {
 		strResult += _endForm();
 		return strResult;
 	};
+	
 	return {
 		buildFilterConfigure:function(ddic, startIndex, keyPrefix){
 			var result = "";
@@ -146,6 +216,9 @@ sap.ui.define([], function() {
 			result += _getMTableColumns(ddic);
 			result += _getMTableItems(ddic);
 			return result;
+		},
+		buildUITable:function(ddic){
+			return _buildUITable(ddic);
 		},
 		buildForm:function(ddic,uiParams){
 			return _buildForm(ddic, uiParams);

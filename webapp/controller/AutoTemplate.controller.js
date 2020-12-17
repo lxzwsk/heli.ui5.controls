@@ -182,7 +182,11 @@ sap.ui.define([
 			}
 		},
 		onUITableTemplate:function(oEvent){
-			
+			var oFields = this._getFields();
+			var uiParams = this._getUiParams();
+			var strResult = MyTemplates.buildUITable(oFields,uiParams);
+			this.setModelProperty("UIModel","Result",strResult); 
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 		},
 		onFormTemplate:function(oEvent){
 			var oFields = this._getFields();
