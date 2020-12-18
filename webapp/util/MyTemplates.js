@@ -97,7 +97,7 @@ sap.ui.define([], function() {
 			strResult += "	</table:Column> \r\n";
 			
 		});
-		strResult += "	</table:columns>";
+		strResult += "	</table:columns> \r\n";
 		return strResult;
 	};
 	
@@ -111,11 +111,57 @@ sap.ui.define([], function() {
 		strResult += "		</table:rowActionTemplate>\r\n";
 		return strResult;
 	};
+	
+	var _getSmartTableHeader = function(uiParams){
+		var strResult = "<smartTable:SmartTable id=\""+uiParams.EntityName+"SmartTable\" \r\n";
+		strResult += "	smartFilterId=\"SmartFilterBar\"  \r\n";
+		strResult += "	class=\"sapUiNoMargin\" \r\n";
+		strResult += "	height=\"100%\" \r\n";
+		strResult += "	width=\"auto\" \r\n";
+		strResult += "	header=\"{= ${worklistView>/tableHeaderText} }\" \r\n";
+		strResult += "	tableType=\"TreeTable\" \r\n";
+		strResult += "	showRowCount=\"true\" \r\n";
+		strResult += "	useExportToExcel=\"true\" \r\n";
+		strResult += "	useTablePersonalisation=\"true\" \r\n";
+		strResult += "	persistencyKey=\"fin.cons.ica.reconclose.overview"+uiParams.EntityName+".table\" \r\n";
+		strResult += "	showVariantManagement=\"false\" \r\n";
+		strResult += "	useVariantManagement=\"false\" \r\n";
+		strResult += "	enableAutoBinding=\"false\" \r\n";
+		strResult += "	entitySet=\""+uiParams.EntityName+"\" \r\n";
+		strResult += "	beforeExport=\"onBeforeExport\" \r\n";
+		strResult += "	beforeRebindTable=\"onBeforeRebindTable\" \r\n";
+		strResult += "	requestAtLeastFields=\"LeadingUnit,PartnerUnit,DiffAmt\" \r\n"	;
+		strResult += "	dataReceived=\"onDataReceived\" \r\n";
+		strResult += " > \r\n";
+		return strResult;
+	};
+	
+	var _getSmartTabCustomData = function(){
+		var strResult = " <smartTable:customData>\r\n";
+		strResult += "		<core:CustomData id=\"stb.ReconClose.CustData\" key=\"p13nDialogSettings\" \r\n";
+		strResult += "						value='\{ \"sort\": \{ \"visible\": true}, \"filter\": \{ \"visible\": true}, \"group\": \{ \"visible\": false} }'/> \r\n";
+		strResult += "	</smartTable:customData> \r\n";
+		strResult += " <smartTable:customToolbar> \r\n";
+		strResult += "	<OverflowToolbar id=\"overflowToolbar\" design=\"Transparent\"> \r\n";
+		strResult += "		<ToolbarSpacer id=\"stb.ReconClose.tbp\" /> \r\n";
+		strResult += "			<Button id=\"btn.ReconClose.Close\" text=\"{i18n>TXT_CLOSE\" press=\"onClose\" enabled=\"{worklistView>/enableClose}\" type=\"Emphasized\"/> \r\n";
+		strResult += "			<Button id=\"btn.ReconClose.Reopen\" text=\"{i18n>TXT_REOPEN}\" press=\"onReOpen\" enabled=\"{worklistView>/enableReOpen}\"/>\r\n";
+		strResult +=" </smartTable:customToolbar> \r\n";
+		return strResult;
+	};
 	var _buildUITable = function(ddic){
 		var strResult = _getUITableHeader();
 		strResult += _getUItableColumns(ddic);
 		strResult += _getTableActionRow();
 		strResult += "</table:Table>\r\n";
+		return strResult;
+	};
+	
+	var _buildSmartTable = function(ddic,uiParams){
+		var strResult = _getSmartTableHeader(uiParams);
+		strResult += _getSmartTabCustomData();
+		strResult += _buildUITable(ddic);
+		strResult += "</smartTable:SmartTable> \r\n";
 		return strResult;
 	};
 	
@@ -186,7 +232,11 @@ sap.ui.define([], function() {
 		
 		i = 0;
 		for(var o in ddic){
-			if (i === oParams.FormColumns) i = 0;
+			if (i == oParams.FormColumns){ 
+				
+				i = 0
+				
+			};
 			aContainer[i] += _buildFormElement(ddic[o]);
 			i++;
 		}
@@ -222,6 +272,9 @@ sap.ui.define([], function() {
 		},
 		buildForm:function(ddic,uiParams){
 			return _buildForm(ddic, uiParams);
+		},
+		buildSmartTable:function(ddic,uiParams){
+			return _buildSmartTable(ddic,uiParams);
 		}
 	};
 	

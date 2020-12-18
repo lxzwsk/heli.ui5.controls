@@ -39,6 +39,7 @@
 									<MenuItem text="SmartFilterBar Configure" press="onBuildSmartFilterBarConfigure" icon="sap-icon://filter" />
 									<MenuItem text="M.Table Template" press="onMTableTemplate" icon="sap-icon://table-view" />
 									<MenuItem text="UI.Table Template" press="onUITableTemplate" icon="sap-icon://table-view" />
+									<MenuItem text="Smart.Table Template" press="onSmartTableTempalte" icon="sap-icon://table-view" />
 									<MenuItem text="Form Template" press="onFormTemplate" icon="sap-icon://form" />
 									<MenuItem text="WorkListTemplate" press="onWorkListTemplate" icon="sap-icon://form" />
 								</items>

@@ -146,6 +146,8 @@ sap.ui.define([
 
 				this._setFieldsForCode(JSON.stringify(ceFieldCode));
 				this._selectedTabFilterById(Const.ICONTABFILTER_IFTTABLE);
+				
+				this.setModelProperty("UIModel","EntityName",strEntityName); 
 			}
 		},
 		onLoaDataFromCode:function(oEvent){
@@ -196,6 +198,14 @@ sap.ui.define([
 			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 			
 		},
+		onSmartTableTempalte:function(oEvent){
+			var oFields = this._getFields();
+			var uiParams = this._getUiParams();
+			var strResult = MyTemplates.buildSmartTable(oFields,uiParams);
+			this.setModelProperty("UIModel","Result",strResult); 
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
+		}             
+		,
 		onWorkListTemplate:function(oEvent){
 			
 		},
@@ -220,6 +230,7 @@ sap.ui.define([
 				Result:"",
 				FormColumns:3,
 				ShowFormColumns:true,
+				EntityName:"",
 				Fields:iTempData
 			};
 			var UIModel = new JSONModel(uiParameters);
