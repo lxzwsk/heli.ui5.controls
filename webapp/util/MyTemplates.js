@@ -233,10 +233,8 @@ sap.ui.define([], function() {
 		i = 0;
 		for(var o in ddic){
 			if (i == oParams.FormColumns){ 
-				
-				i = 0
-				
-			};
+				i = 0;
+			}
 			aContainer[i] += _buildFormElement(ddic[o]);
 			i++;
 		}
