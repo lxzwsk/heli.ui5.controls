@@ -94,6 +94,11 @@ sap.ui.define([], function() {
 				expand:true
 
 			},{
+				name:"codeblock",
+				desc:"CodeBlock",
+				icon:"sap-icon://source-code",
+				leaf:true
+			},{
 				name:"GenerateCode",
 				desc:"Generate code",
 				icon:"sap-icon://source-code",

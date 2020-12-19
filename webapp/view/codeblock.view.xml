@@ -1,0 +1,33 @@
+<mvc:View xmlns:core="sap.ui.core" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns="sap.m" 
+		  xmlns:code="sap.ui.codeeditor"
+		  controllerName="heli.ui5.controls.controller.codeblock"
+		 xmlns:html="http://www.w3.org/1999/xhtml">
+
+			<Page title="CodeBlock">
+				<content>
+					<Vbox>
+						<TabContainer>
+							<items>
+								<TabContainerItem name="Formatter">
+									<content>
+										<OverflowToolbar>
+											<content>
+												<OverflowToolbarButton text="Formatter Number"></OverflowToolbarButton>
+											</content>
+										</OverflowToolbar>
+										<code:CodeEditor width="1200px" height="500px" type="javascript"></code:CodeEditor>
+									</content>
+								</TabContainerItem>
+								<TabContainerItem name="Popover">
+									
+								</TabContainerItem>
+							</items>
+						</TabContainer>
+					
+					</Vbox>
+				</content>
+			</Page>
+		
+</mvc:View>
