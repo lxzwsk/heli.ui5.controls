@@ -1,16 +1,17 @@
 <mvc:View xmlns:core="sap.ui.core" 
 		  xmlns:mvc="sap.ui.core.mvc"
 		  xmlns:table="sap.ui.table"
+		  xmlns:f="sap.ui.layout.form"
 		  xmlns="sap.m" 
 		  xmlns:codeEdit="sap.ui.codeeditor"
 		  controllerName="heli.ui5.controls.controller.AutoTemplate"
 		  xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Auto Build UI Parameter">
 		<content>
-			<HBox>
+			<HBox width="100%">
 				
 				<!--<Panel headerText="DataSource">-->
-				<VBox>
+				<VBox width="100%">
 						<HBox >
 							<Label text="DataSource:" labelFor="comboDataSource">
 								<layoutData>
@@ -58,7 +59,8 @@
 									<FlexItemData alignSelf="Center"></FlexItemData>
 								</layoutData>
 							</Label>
-							<Input value="{UIModel>/FormColumns}" width="2rem"></Input>
+							<Input value="{UIModel>/FormColumns}" width="2rem" class="sapUiSmallMarginEnd" ></Input>
+							<Button id="btnReview" icon="sap-icon://my-view" press="onReviewXml" text="Review"></Button>
 						</HBox>
 						<OverflowToolbar visible="false">
 							<content>
@@ -68,9 +70,9 @@
 						</OverflowToolbar>
 						  </HBox>
 				
-					<HBox>
+					<HBox width="150%">
 						<!--select="onSelectIconTabBar"-->
-						<IconTabBar class="sapUiResponsiveContentPadding" id="ITBar1"  >
+						<IconTabBar class="sapUiResponsiveContentPadding" id="ITBar1" width="150%"  >
 							<items>
 								<IconTabFilter icon="sap-icon://source-code" id="ITFCode" >
 									<TextArea cols="120" rows="5" id="TDataSource" visible="false"></TextArea>
@@ -124,10 +126,13 @@
 								<IconTabFilter icon="sap-icon://complete" id="IFTResult">
 									<codeEdit:CodeEditor type="xml" id="TResult" height="500px" width="1200px" value="{UIModel>/Result}"></codeEdit:CodeEditor>
 								</IconTabFilter>
+								<IconTabFilter icon="sap-icon://my-view" id="IFTReview" >
+									
+								</IconTabFilter>
 							</items>
 						</IconTabBar>
 						
-						<VBox>
+						<VBox visible="false">
 							<Button icon="sap-icon://add" press="onDataSourceAddRows"></Button>
 							<Button icon="sap-icon://less" press="onDataSourceSubRows"></Button>
 							<Button icon="sap-icon://copy" press="onCopy"></Button>

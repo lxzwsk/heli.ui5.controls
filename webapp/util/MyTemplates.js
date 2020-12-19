@@ -37,7 +37,7 @@ sap.ui.define([], function() {
 			return result;
 	};
 	var _getMTableHeader = function() {
-			return "<Table id=\"{Table1}\" alternateRowColors=\"true\" backgroundDesign=\"Transparent\" headerText=\"Header\" mode=\"SingleSelect\" noDataText=\"No Data\" items=\"{TableSet}\" >";
+			return "<Table id=\"Table1\" alternateRowColors=\"true\" backgroundDesign=\"Transparent\" headerText=\"Header\" mode=\"SingleSelect\" noDataText=\"No Data\" items=\"{TableSet}\" >";
 		};
 	var _getMTableColumn = function(Column) {
 			return "<Column> \r\n      <Text text=\"" + Column + "\" />  \r\n  </Column> \r\n";
@@ -167,7 +167,7 @@ sap.ui.define([], function() {
 	
 		
 	var _startForm = function(){
-		var strResult = "<f:Form id=\"basicForm\">\r\n";
+		var strResult = "<f:Form id=\"basicForm\" editable=\"true\">\r\n";
 		return strResult;
 	};
 	
@@ -250,6 +250,21 @@ sap.ui.define([], function() {
 		return strResult;
 	};
 	
+	var _buildFragment = function(xmlContent){
+		var strResult = "<core:FragmentDefinition \r\n";	
+		strResult += " xmlns=\"sap.m\"  \r\n";
+		strResult += "xmlns:core=\"sap.ui.core\" \r\n";
+		strResult += "xmlns:f=\"sap.ui.layout.form\" \r\n";
+		strResult += "xmlns:table=\"sap.ui.table\" \r\n";
+		strResult += " > \r\n";
+		
+		strResult += xmlContent + "\r\n";
+		
+		strResult += "</core:FragmentDefinition> \r\n";
+		
+		return strResult;
+	};
+	
 	return {
 		buildFilterConfigure:function(ddic, startIndex, keyPrefix){
 			var result = "";
@@ -273,6 +288,9 @@ sap.ui.define([], function() {
 		},
 		buildSmartTable:function(ddic,uiParams){
 			return _buildSmartTable(ddic,uiParams);
+		},
+		buildFragment:function(xmlContent){
+			return _buildFragment(xmlContent);
 		}
 	};
 	

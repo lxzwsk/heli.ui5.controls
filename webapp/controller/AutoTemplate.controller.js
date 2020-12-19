@@ -89,6 +89,7 @@ sap.ui.define([
 			var ddic = this._getFields();
 			var result = MyTemplates.buildMTable(ddic);
 			this._setResult(result);
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 		},
 		onChangeDataSource:function(oEvent){
 			if(oEvent.getParameter("itemPressed")){
@@ -165,6 +166,11 @@ sap.ui.define([
 			//this.byId("ITBar1").setSelectedItem(oIconTabFilter);
 			//this.byId("ITBar1").fireSelect({item:oIconTabFilter,key:oIconTabFilter.getId()});
 		},
+		onReviewXml:function(oEvent){
+			this._loadXmlView();
+			this._selectedTabFilterById(Const.ICONTABFILTER_IFTREVIEW);
+		}
+		,
 		onSelectIconTabBar:function(oEvent){
 			var strITFId = oEvent.getParameter("item").getId().replace("__xmlview2--","");
 			switch(strITFId){
@@ -187,14 +193,14 @@ sap.ui.define([
 			var oFields = this._getFields();
 			var uiParams = this._getUiParams();
 			var strResult = MyTemplates.buildUITable(oFields,uiParams);
-			this.setModelProperty("UIModel","Result",strResult); 
+			this._setResult(strResult);
 			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 		},
 		onFormTemplate:function(oEvent){
 			var oFields = this._getFields();
 			var uiParams = this._getUiParams();
 			var strResult = MyTemplates.buildForm(oFields,uiParams);
-			this.setModelProperty("UIModel","Result",strResult); 
+			this._setResult(strResult); 
 			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 			
 		},
@@ -202,7 +208,7 @@ sap.ui.define([
 			var oFields = this._getFields();
 			var uiParams = this._getUiParams();
 			var strResult = MyTemplates.buildSmartTable(oFields,uiParams);
-			this.setModelProperty("UIModel","Result",strResult); 
+			this._setResult(strResult); 
 			this._selectedTabFilterById(Const.ICONTABFILTER_IFTRESULT);
 		}             
 		,
@@ -287,6 +293,19 @@ sap.ui.define([
 			var iCountRows = oControl.getRows();
 			if (iCountRows > iFixedRows) {
 				oControl.setRows(iCountRows - iFixedRows);
+			}
+		},
+		_loadXmlView:function(){
+			var xmlResult = this._getResult();
+			if(xmlResult){
+				var oReview = this.byId(Const.ICONTABFILTER_IFTREVIEW);
+				oReview.destroyContent();
+				var oFrament = sap.ui.xmlfragment({fragmentContent:MyTemplates.buildFragment(xmlResult)});
+				this.getView().addDependent(oFrament);
+				oReview.addContent(oFrament);    
+				
+				
+				 
 			}
 		}
 
