@@ -7,26 +7,21 @@
 
 			<Page title="CodeBlock">
 				<content>
-					<Vbox>
-						<TabContainer>
+					<VBox>
+						<TabContainer items="{TabMetaData>/items}">
 							<items>
-								<TabContainerItem name="Formatter">
+								<TabContainerItem name="{TabMetaData>name}">
 									<content>
-										<OverflowToolbar>
-											<content>
-												<OverflowToolbarButton text="Formatter Number"></OverflowToolbarButton>
-											</content>
-										</OverflowToolbar>
-										<code:CodeEditor width="1200px" height="500px" type="javascript"></code:CodeEditor>
+										<OverflowToolbar  content="{path:'TabMetaData>buttons',templateShareable:false,factory:'.toolBarFactory'}" />
+										<code:CodeEditor width="1200px" height="500px"  value="{UIModel>/code}" type="{UIModel>/type}"> </code:CodeEditor>
 									</content>
 								</TabContainerItem>
-								<TabContainerItem name="Popover">
-									
-								</TabContainerItem>
+							
 							</items>
 						</TabContainer>
+						
 					
-					</Vbox>
+					</VBox>
 				</content>
 			</Page>
 		

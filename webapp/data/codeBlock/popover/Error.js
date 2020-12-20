@@ -1,0 +1,1 @@
+var strResult = "this is a Error js";

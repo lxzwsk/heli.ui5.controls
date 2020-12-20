@@ -176,10 +176,30 @@ sap.ui.define([
 		}
 		return sPath;
 	};
+	var _loadData = function(path,dataType){
+		return new Promise(function(resolve,reject){
+			$.ajax({
+				url:path,
+				dataType:dataType,
+				success:function(oData){
+					var strCode = oData;
+					if(dataType === "xml"){
+						strCode = (new XMLSerializer()).serializeToString(oData);
+					}
+					resolve(strCode);		
+				}
+			
+			});
+		});
+		
+	};
 
 	return {
 		buildRoute: fnBuildRouteByTreeData,
 		getDefaultPath:fnGetDefaultViewPath,
-		copyStringToClipboard:_copyStringToClipboard
+		copyStringToClipboard:_copyStringToClipboard,
+		loadData:function(path,dataType){
+			return _loadData(path,dataType);
+		}
 	};
 });
