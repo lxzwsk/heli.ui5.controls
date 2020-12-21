@@ -256,6 +256,10 @@ sap.ui.define([], function() {
 		strResult += "xmlns:core=\"sap.ui.core\" \r\n";
 		strResult += "xmlns:f=\"sap.ui.layout.form\" \r\n";
 		strResult += "xmlns:table=\"sap.ui.table\" \r\n";
+		strResult += "xmlns:smartfilterbar=\"sap.ui.comp.smartfilterbar\" \r\n";
+		strResult += "xmlns:smarttable=\"sap.ui.comp.smarttable\"\r\n";
+		strResult += "xmlns:sv=\"sap.ui.comp.smartvariants\" \r\n";
+		strResult += "xmlns:semantic=\"sap.m.semantic\" \r\n";
 		strResult += " > \r\n";
 		
 		strResult += xmlContent + "\r\n";
