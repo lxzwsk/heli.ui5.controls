@@ -23,7 +23,14 @@ sap.ui.define([],function(){
 								{name:"BindAggregation",text:"BindAggregation",path:"binding/BindAggregation.js",type:"script"}
 						]
 						
+				},{
+					name:"Other",
+					toolbarid:"Other",
+					buttons:[
+								{name:"Other",text:"Other",path:"other/Other.js",type:"script"}
+						]
 				}
+				
 		]
 	};
 });

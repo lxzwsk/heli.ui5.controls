@@ -13,7 +13,7 @@
 								<TabContainerItem name="{TabMetaData>name}">
 									<content>
 										<OverflowToolbar  content="{path:'TabMetaData>buttons',templateShareable:false,factory:'.toolBarFactory'}" />
-										<code:CodeEditor width="1200px" height="500px"  value="{UIModel>/code}" type="{UIModel>/type}"> </code:CodeEditor>
+										<code:CodeEditor width="1200px" height="800px"  value="{UIModel>/code}" type="{UIModel>/type}"> </code:CodeEditor>
 									</content>
 								</TabContainerItem>
 							
