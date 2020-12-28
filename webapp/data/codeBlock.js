@@ -31,11 +31,17 @@ sap.ui.define([],function(){
 						{name:"CallFunction",text:"CallFunction",path:"oData/CallFunction.js",type:"script"}
 					]
 				},{
+					name:"JS",
+					toolbarid:"JS",
+					buttons:[
+						{name:"Promise",text:"Promise",path:"JS/Promise.js",type:"script"}
+					]
+				},{
 					name:"Other",
 					toolbarid:"Other",
 					buttons:[
-								{name:"Other",text:"Other",path:"other/Other.js",type:"script"}
-						]
+						{name:"Other",text:"Other",path:"other/Other.js",type:"script"}
+					]
 				}
 				
 		]
