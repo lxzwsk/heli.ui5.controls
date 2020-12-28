@@ -25,6 +25,12 @@ sap.ui.define([],function(){
 						]
 						
 				},{
+					name:"OData",
+					toolbarid:"OData",
+					buttons:[
+						{name:"CallFunction",text:"CallFunction",path:"oData/CallFunction.js",type:"script"}
+					]
+				},{
 					name:"Other",
 					toolbarid:"Other",
 					buttons:[
