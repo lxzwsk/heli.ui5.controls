@@ -1,0 +1,48 @@
+<Page title="CodeBlock">
+	<content>
+		<VBox>
+			<TabContainer items="{TabMetaData>/items}">
+				<items>
+					<TabContainerItem name="{TabMetaData>name}">
+						<content>
+							<OverflowToolbar  content="{path:'TabMetaData>buttons',templateShareable:false,factory:'.toolBarFactory'}" />
+							<code:CodeEditor width="1200px" height="800px"  value="{UIModel>/code}" type="{UIModel>/type}"> </code:CodeEditor>
+						</content>
+					</TabContainerItem>
+				
+				</items>
+			</TabContainer>
+			
+		</VBox>
+	</content>
+</Page>
+
+<!--
+
+toolBarFactory:function(sId,oContext){
+	var oButton = new sap.m.Button({text:"{TabMetaData>name}",press:this.onLoadCodeBlock.bind(this)});
+	return oButton;
+},
+onLoadCodeBlock:function(oEvent){
+	var oData = oEvent.getSource().getBinding("text").oContext.getObject();
+	var path = this.rootPath + oData.path;
+	var dataType = oData.type;                         
+	Util.loadData(path,dataType).then(function(oData){
+		this.setCode(oData,dataType);
+	}.bind(this));
+},
+setCode:function(strCode,dataType){
+	var strType = "javascript";
+	switch(dataType){
+		case"xml":
+			strType = "xml";
+				break;
+		default:
+			strType = "javascript";
+	}
+	this.setModelProperty("UIModel","code",strCode);
+				
+	this.setModelProperty("UIModel","type",strType);
+}
+
+-->

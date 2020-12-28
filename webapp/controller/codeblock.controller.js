@@ -45,6 +45,11 @@ sap.ui.define([
 				var dataType = oData.type;                         
 				Util.loadData(path,dataType).then(function(oData){
 					this.setCode(oData,dataType);
+				}.bind(this)).catch(function(oResponse){
+					//alert(oResponse);
+					if(oResponse.responseText){
+						this.setCode(oResponse.responseText);
+					}
 				}.bind(this));
 			},
 			setCode:function(strCode,dataType){

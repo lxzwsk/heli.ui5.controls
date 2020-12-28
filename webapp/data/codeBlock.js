@@ -20,7 +20,8 @@ sap.ui.define([],function(){
 					toolbarid:"Binding",
 					buttons:[
 								{name:"BindExpress",text:"bindExpress",path:"binding/BindExpress.xml",type:"xml"},
-								{name:"BindAggregation",text:"BindAggregation",path:"binding/BindAggregation.js",type:"script"}
+								{name:"BindAggregation",text:"BindAggregation",path:"binding/BindAggregation.js",type:"script"},
+								{name:"BindFactory", text:"BindFactory",path:"binding/BindFactory.xml",type:"xml"}
 						]
 						
 				},{

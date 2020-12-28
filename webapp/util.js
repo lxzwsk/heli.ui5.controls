@@ -187,6 +187,9 @@ sap.ui.define([
 						strCode = (new XMLSerializer()).serializeToString(oData);
 					}
 					resolve(strCode);		
+				},
+				error:function(oResponse){
+					reject(oResponse);
 				}
 			
 			});

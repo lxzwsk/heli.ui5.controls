@@ -1,5 +1,9 @@
 <Button text="{path:'name'}"></Button>
-
+<Link text="{ parts:[{path:'CmtCount'}, {path:'CmtRequired'}], formatter: '.formatter.formatCommentsNumber'}" 
+      press="onOpenCommentsDialog"
+	  emphasized="{= ${CmtRequired} }" 
+	  visible="{parts:['NodeType','IsInCompoundRule'],formatter:'.formatter.isCommentLinkVisible' }"
+      tooltip="{path: 'CmtRequired', formatter: '.formatter.cmtRequiredTooltip'}"/>
 
 <!--
 	var a = 1;
