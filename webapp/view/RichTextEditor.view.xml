@@ -1,0 +1,25 @@
+<mvc:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:richtext="sap.ui.richtexteditor"
+	controllerName="heli.ui5.controls.controller.RichTextEditor"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+			<Page title="Title">
+				<content>
+					<layout:VerticalLayout width="100%">
+						<richtext:RichTextEditor editable="true" 
+												 showGroupFont="true"
+												 showGroupLink="true"
+												 showGroupInsert="true"
+												 customToolbar="true"
+												 width="100%" 
+												 id="rtEditor">
+							
+						</richtext:RichTextEditor>
+					</layout:VerticalLayout>
+					<Button text="get Value" press="onPress"></Button>
+				</content>
+			</Page>
+
+</mvc:View>

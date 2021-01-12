@@ -4,7 +4,14 @@
 		<pages>
 			<Page title="Title">
 				<content>
+					<VBox>
 					<Button id="btn1" press="onBtn1Press" text="showBusy"></Button>
+					<Button id="btn2" press="onBtn2Press" text="Btn2"></Button>
+					<Button id="btn3" press="onBtn3Press" text="Btn3"></Button>
+					<VBox>
+						<Text id="txt1"></Text>
+					</VBox>
+					</VBox>
 				</content>
 			</Page>
 		</pages>

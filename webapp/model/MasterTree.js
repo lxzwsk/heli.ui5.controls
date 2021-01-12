@@ -16,6 +16,11 @@ sap.ui.define([], function() {
 				leaf: true,
 				icon: "sap-icon://dropdown"
 
+			},{
+				name:"RichTextEditor",
+				desc:"RichTextEditor",
+				leaf:true,
+				icon:""
 			}]
 		}, {
 			name: "UITable",
